@@ -8,12 +8,12 @@
     "modules": "Modules",
     "pricing": "Pricing",
     "login": "Sign in",
-    "start": "Free trial",
     "language": "Language",
     "languages": {
       "es": "Español",
       "en": "English"
-    }
+    },
+    "signup": "Sign up"
   },
   "hero": {
     "tagline": "Technology and automation",

@@ -19,7 +19,6 @@ export function SiteHeader({ locale }: { locale: string }) {
         <nav aria-label={t("main")} className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
           <a href="#modulos" className="hover:text-white">{t("modules")}</a>
           <a href="#precios" className="hover:text-white">{t("pricing")}</a>
-          <a href={`${uiBaseUrl()}/${locale}/login`} className="hover:text-white">{t("login")}</a>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -42,10 +41,16 @@ export function SiteHeader({ locale }: { locale: string }) {
             ))}
           </nav>
           <a
-            href="#precios"
-            className="hidden rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 transition-colors hover:bg-amber-300 sm:inline-block"
+            href={`${uiBaseUrl()}/${locale}/login`}
+            className="rounded-full border border-white/25 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:border-white/60 sm:px-4 sm:py-2"
           >
-            {t("start")}
+            {t("login")}
+          </a>
+          <a
+            href={`${uiBaseUrl()}/${locale}/registro`}
+            className="rounded-full bg-amber-400 px-3 py-1.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-amber-300 sm:px-4 sm:py-2"
+          >
+            {t("signup")}
           </a>
         </div>
       </div>

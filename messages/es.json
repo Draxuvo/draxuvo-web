@@ -8,12 +8,12 @@
     "modules": "Módulos",
     "pricing": "Precios",
     "login": "Iniciar sesión",
-    "start": "Prueba gratis",
     "language": "Idioma",
     "languages": {
       "es": "Español",
       "en": "English"
-    }
+    },
+    "signup": "Crear cuenta"
   },
   "hero": {
     "tagline": "Tecnología y automatización",

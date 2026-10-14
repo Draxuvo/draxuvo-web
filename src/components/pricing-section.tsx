@@ -2,16 +2,38 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { Check } from "lucide-react";
 import { type BillingCycle, type PlansResponse, registrationUrl } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 
 const CYCLES: BillingCycle[] = ["monthly", "annual"];
+const CHOSEN_PLAN = "pro";
+
+// Precio de etiquetadora: el número entero grande; signo, centavos y moneda al 40 %.
+function PriceFigure({ parts }: { parts: Intl.NumberFormatPart[] }) {
+  return (
+    <span className="inline-flex items-start font-display leading-none font-extrabold tabular-nums">
+      {parts.map((part, index) => {
+        if (part.type === "currency") {
+          return <span key={index} className="mt-1 text-[0.4em]">{part.value}</span>;
+        }
+        if (part.type === "decimal" || part.type === "fraction") {
+          return <span key={index} className="mt-1 text-[0.4em]">{part.value}</span>;
+        }
+        return <span key={index}>{part.value}</span>;
+      })}
+      <span className="mt-1 ml-1 self-start text-[0.4em] opacity-60">MXN</span>
+    </span>
+  );
+}
 
 export function PricingSection({ catalog }: { catalog: PlansResponse }) {
   const t = useTranslations("pricing");
   const tm = useTranslations("modules");
   const locale = useLocale();
   const [cycle, setCycle] = useState<BillingCycle>("monthly");
+  // El giro de reetiquetado solo corre después de que el visitante cambia el ciclo.
+  const [relabeled, setRelabeled] = useState(false);
 
   const money = new Intl.NumberFormat(locale === "en" ? "en-US" : "es-MX", {
     style: "currency",
@@ -22,30 +44,42 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
   const format = (cents: number) => money.format(cents / 100);
   const ivaPercent = Math.round(catalog.iva_rate * 100);
 
-  return (
-    <section id="precios" aria-labelledby="pricing-title" className="scroll-mt-16 bg-slate-50 py-20 text-slate-900 sm:py-28">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 id="pricing-title" className="text-3xl font-bold tracking-tight sm:text-4xl">{t("title")}</h2>
-          <p className="mt-4 text-lg text-slate-600">{t("subtitle")}</p>
-        </div>
+  function chooseCycle(value: BillingCycle) {
+    if (value === cycle) return;
+    setCycle(value);
+    setRelabeled(true);
+  }
 
-        <div className="mt-10 flex justify-center">
-          <div role="group" aria-label={t("cycleLabel")} className="inline-flex rounded-full border border-slate-200 bg-white p-1 shadow-sm">
+  return (
+    <section id="precios" aria-labelledby="pricing-title" className="scroll-mt-20 overflow-x-clip pt-8">
+      <div className="mx-auto max-w-[72rem] px-4 sm:px-6">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 id="pricing-title" className="font-display text-[2.5rem] leading-none font-extrabold uppercase">
+              {t("title")}
+            </h2>
+            <p className="mt-2 max-w-[56ch] text-gris-texto">{t("subtitle")}</p>
+          </div>
+
+          <div
+            role="group"
+            aria-label={t("cycleLabel")}
+            className="inline-flex shrink-0 self-start rounded-etiqueta border-2 border-tinta bg-etiqueta p-1 md:self-auto"
+          >
             {CYCLES.map((value) => (
               <button
                 key={value}
                 type="button"
                 aria-pressed={cycle === value}
-                onClick={() => setCycle(value)}
+                onClick={() => chooseCycle(value)}
                 className={cn(
-                  "rounded-full px-5 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
-                  cycle === value ? "bg-slate-950 text-white" : "text-slate-600 hover:text-slate-900",
+                  "flex items-center gap-2 rounded-[4px] px-4 py-2 font-display text-lg leading-none font-semibold uppercase transition-colors duration-120",
+                  cycle === value ? "bg-tinta text-etiqueta" : "hover:bg-anaquel",
                 )}
               >
                 {t(value)}
                 {value === "annual" && (
-                  <span className={cn("ml-2 text-xs", cycle === value ? "text-amber-300" : "text-amber-700")}>
+                  <span className="rounded-full bg-ceja px-2 py-0.5 font-sans text-xs font-semibold tracking-normal text-tinta normal-case">
                     {t("annualNote")}
                   </span>
                 )}
@@ -54,74 +88,90 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
           </div>
         </div>
 
-        <ul className="mt-12 grid gap-6 lg:grid-cols-3">
-          {catalog.plans.map((plan) => {
+        <ul className="mt-6 grid gap-x-6 lg:grid-cols-3 lg:grid-rows-[auto_auto]">
+          {catalog.plans.map((plan, index) => {
             const price = plan.prices[cycle];
-            const recommended = plan.key === "pro";
+            const chosen = plan.key === CHOSEN_PLAN;
             const nameId = `plan-${plan.key}`;
+            const delay = { animationDelay: `${index * 30}ms` };
+            const flip = relabeled ? "motion-safe:animate-relabel" : undefined;
             return (
               <li
                 key={plan.key}
                 aria-labelledby={nameId}
-                className={cn(
-                  "relative flex flex-col rounded-3xl border bg-white p-8 shadow-sm",
-                  recommended ? "border-amber-400 ring-2 ring-amber-400" : "border-slate-200",
-                )}
+                className="relative pt-6 lg:row-span-2 lg:row-start-1 lg:grid lg:grid-rows-subgrid lg:pt-0"
               >
-                {recommended && (
-                  <p className="absolute -top-3 left-8 rounded-full bg-amber-400 px-3 py-0.5 text-xs font-semibold text-slate-950">
-                    {t("recommended")}
-                  </p>
-                )}
-                <h3 id={nameId} className="text-xl font-semibold">{t(`plans.${plan.key}.name`)}</h3>
-                <p className="mt-2 min-h-12 text-sm text-slate-600">{t(`plans.${plan.key}.desc`)}</p>
-
-                <p className="mt-6 flex items-baseline gap-1">
-                  <span className="text-4xl font-bold tracking-tight">{format(price.amount_cents)}</span>
-                  <span className="text-sm text-slate-500">{t(cycle === "monthly" ? "perMonth" : "perYear")}</span>
-                </p>
-                <dl className="mt-3 space-y-1 text-sm text-slate-600">
-                  <div className="flex justify-between">
-                    <dt>{t("iva", { rate: ivaPercent })}</dt>
-                    <dd>{format(price.iva_cents)}</dd>
+                <div className="pb-6">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h3 id={nameId} className="font-display text-[2.5rem] leading-none font-extrabold uppercase">
+                      {t(`plans.${plan.key}.name`)}
+                    </h3>
+                    {chosen && (
+                      <p className="rounded-etiqueta border-2 border-tinta bg-oferta px-2 py-0.5 text-[0.8125rem] font-semibold tracking-[0.06em] text-tinta uppercase">
+                        {t("recommended")}
+                      </p>
+                    )}
                   </div>
-                  <div className="flex justify-between font-semibold text-slate-900">
-                    <dt>{t("total")}</dt>
-                    <dd>{format(price.total_cents)}</dd>
+                  <p className="mt-2 text-[0.9375rem] leading-snug text-gris-texto">{t(`plans.${plan.key}.desc`)}</p>
+                  <p className="sr-only">{t("includes")}</p>
+                  <ul className="mt-4 flex flex-wrap gap-1.5">
+                    {plan.modules.map((module) => (
+                      <li
+                        key={module}
+                        className="inline-flex items-center gap-1 rounded-full border border-anaquel-borde bg-etiqueta py-1 pr-2.5 pl-1.5 text-[0.8125rem] font-medium"
+                      >
+                        <Check className="size-4 text-sello" strokeWidth={2.25} aria-hidden="true" />
+                        {tm(`items.${module}.title`)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="-mx-4 border-y-2 border-tinta bg-ceja px-4 py-5 sm:-mx-6 sm:px-6 lg:relative lg:mx-0 lg:border-0 lg:bg-transparent lg:px-0 lg:before:absolute lg:before:inset-y-0 lg:before:-right-[100vmax] lg:before:-left-[100vmax] lg:before:-z-10 lg:before:border-y-2 lg:before:border-tinta lg:before:bg-ceja lg:before:content-['']">
+                  <div
+                    className={cn(
+                      "notch flex h-full flex-col rounded-etiqueta border-2 border-tinta bg-etiqueta py-4 pr-4 pl-6 shadow-etiqueta [--notch-bg:var(--color-ceja)] [--notch-line:var(--color-tinta)]",
+                      chosen && "outline-4 outline-offset-0 outline-oferta",
+                    )}
+                  >
+                    <div className="pb-4 [perspective:600px]">
+                      <div key={cycle} style={delay} className={flip}>
+                        <p className="text-[clamp(2.5rem,5vw,4rem)] leading-none">
+                          <PriceFigure parts={money.formatToParts(price.amount_cents / 100)} />
+                        </p>
+                        <p className="mt-1 text-[0.8125rem] font-semibold tracking-[0.06em] text-gris-texto uppercase">
+                          {t("beforeTax")} · {t(cycle === "monthly" ? "perMonthLong" : "perYearLong")}
+                        </p>
+                        <dl className="mt-3 space-y-1 border-t border-dashed border-tinta/40 pt-3 font-display text-lg tabular-nums">
+                          <div className="flex justify-between gap-4">
+                            <dt className="font-sans text-[0.9375rem]">{t("iva", { rate: ivaPercent })}</dt>
+                            <dd className="font-semibold">{format(price.iva_cents)}</dd>
+                          </div>
+                          <div className="flex justify-between gap-4 text-xl">
+                            <dt className="font-sans text-[0.9375rem] font-semibold">{t("total")}</dt>
+                            <dd className="font-extrabold">{format(price.total_cents)}</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+                    <a
+                      href={registrationUrl(locale, plan.key, cycle)}
+                      aria-describedby={nameId}
+                      className={cn(
+                        "mt-auto rounded-etiqueta border-2 border-tinta px-4 py-2.5 text-center font-semibold text-tinta transition-colors duration-120",
+                        chosen ? "bg-oferta hover:bg-oferta-hover" : "bg-etiqueta hover:bg-ceja",
+                      )}
+                    >
+                      {t("cta")}
+                    </a>
                   </div>
-                </dl>
-
-                <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-slate-500">{t("includes")}</p>
-                <ul className="mt-3 flex-1 space-y-2 text-sm">
-                  {plan.modules.map((module) => (
-                    <li key={module} className="flex items-start gap-2">
-                      <svg viewBox="0 0 20 20" fill="currentColor" className="mt-0.5 size-4 shrink-0 text-amber-600" aria-hidden="true">
-                        <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                      </svg>
-                      {tm(`items.${module}.title`)}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={registrationUrl(locale, plan.key, cycle)}
-                  aria-describedby={nameId}
-                  className={cn(
-                    "mt-8 rounded-full px-5 py-3 text-center font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500",
-                    recommended
-                      ? "bg-amber-400 text-slate-950 hover:bg-amber-300"
-                      : "bg-slate-950 text-white hover:bg-slate-800",
-                  )}
-                >
-                  {t("cta")}
-                </a>
+                </div>
               </li>
             );
           })}
         </ul>
-
-        <p className="mt-8 text-center text-sm text-slate-500">{t("note", { rate: ivaPercent })}</p>
       </div>
+      <p className="mx-auto max-w-[72rem] px-4 pt-4 text-sm text-gris-texto sm:px-6">{t("note", { rate: ivaPercent })}</p>
     </section>
   );
 }

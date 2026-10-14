@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Tokens de DESIGN.md. Tema claro único: el sitio no cambia a oscuro con el sistema. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-tinta: #141414;
+  --color-etiqueta: #ffffff;
+  --color-anaquel: #eceef0;
+  --color-anaquel-borde: #d5d9de;
+  --color-gris-texto: #4a4f55;
+  --color-ceja: #ffd23f;
+  --color-oferta: #ff5a1f;
+  --color-oferta-hover: #ff7a45;
+  --color-sello: #0b7a4b;
+  --color-alerta: #c62828;
+
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-barlow-condensed), var(--font-barlow), ui-sans-serif, sans-serif;
+
+  --radius-etiqueta: 6px;
+  --shadow-etiqueta: 0 1px 0 rgba(20, 20, 20, 0.08), 0 2px 6px rgba(20, 20, 20, 0.06);
+  --ease-etiqueta: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --animate-relabel: relabel 220ms var(--ease-etiqueta) both;
+
+  @keyframes relabel {
+    from {
+      transform: rotateX(90deg);
+      opacity: 0.3;
+    }
+    to {
+      transform: rotateX(0deg);
+      opacity: 1;
+    }
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  color-scheme: light;
+  scrollbar-color: var(--color-gris-texto) var(--color-anaquel);
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-anaquel);
+  color: var(--color-tinta);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+::selection {
+  background: var(--color-ceja);
+  color: var(--color-tinta);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-tinta);
+  outline-offset: 3px;
+}
+
+@layer components {
+  /* Muesca de etiqueta: medio círculo perforado en el borde izquierdo. --notch-bg es el color
+     de la superficie de atrás; --notch-line, el del borde de la etiqueta. */
+  .notch {
+    --notch: 7px;
+    position: relative;
+  }
+
+  .notch::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc(var(--notch) * -1);
+    width: calc(var(--notch) * 2);
+    height: calc(var(--notch) * 2);
+    border-radius: 9999px;
+    background: var(--notch-bg, var(--color-anaquel));
+    border: 2px solid var(--notch-line, transparent);
+    transform: translateY(-50%);
+    clip-path: inset(0 0 0 50%);
+    pointer-events: none;
+  }
+
+  .notch-sm {
+    --notch: 4px;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Selector de giro en módulos: radios nativos; sin :has() se ven los tres ejemplos. */
+.giros:has(input[value="restaurant"]:checked) [data-giro]:not([data-giro="restaurant"]),
+.giros:has(input[value="cafe"]:checked) [data-giro]:not([data-giro="cafe"]),
+.giros:has(input[value="services"]:checked) [data-giro]:not([data-giro="services"]) {
+  display: none;
 }

@@ -4,11 +4,23 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Geist } from "next/font/google";
+import { Barlow, Barlow_Condensed } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
-const geist = Geist({ subsets: ["latin"] });
+const barlow = Barlow({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-barlow",
+  display: "swap",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["600", "800"],
+  variable: "--font-barlow-condensed",
+  display: "swap",
+});
 
 type Props = {
   children: React.ReactNode;
@@ -36,8 +48,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="h-full antialiased">
-      <body className={`${geist.className} min-h-full flex flex-col`}>
+    <html lang={locale} className={`${barlow.variable} ${barlowCondensed.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col bg-anaquel font-sans text-tinta">
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>

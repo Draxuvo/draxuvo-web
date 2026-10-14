@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Draxuvo · Tecnología y automatización",
-    "description": "ERP modular para negocios: personal, asistencia, inventario, órdenes de trabajo, tickets y reportes."
+    "description": "Sistema para negocios pequeños en México: personal, asistencia, inventario, órdenes de trabajo, tickets y reportes. Pagas solo los módulos de tu plan."
   },
   "nav": {
     "main": "Navegación principal",
@@ -13,68 +13,167 @@
       "es": "Español",
       "en": "English"
     },
-    "signup": "Crear cuenta"
+    "signup": "Crear cuenta",
+    "plans": "Planes",
+    "screens": "El panel",
+    "home": "Draxuvo, inicio"
   },
   "hero": {
-    "tagline": "Tecnología y automatización",
     "title": "Todo tu negocio en un solo sistema",
-    "subtitle": "ERP modular para negocios: personal, asistencia, inventario, órdenes de trabajo, tickets y reportes.",
-    "ctaPrimary": "Probar 30 días gratis",
-    "ctaSecondary": "Ver módulos",
+    "subtitle": "Personal, asistencia, inventario, órdenes de trabajo, tickets y reportes en un panel. Pagas solo los módulos de tu plan.",
+    "signup": "Crear cuenta",
+    "login": "Iniciar sesión",
     "trialNote": "30 días gratis, sin tarjeta. Cancela cuando quieras."
   },
   "modules": {
-    "title": "Módulos para cada parte de tu operación",
-    "subtitle": "Activa los que necesitas hoy y suma más cuando tu negocio crezca.",
+    "title": "Qué trae cada módulo",
+    "subtitle": "Cada módulo resuelve una parte de tu operación. Tu plan dice cuáles tienes.",
+    "planLabel": "Incluido desde el plan {plan}",
+    "problemLabel": "El problema",
+    "featuresLabel": "Qué hace",
+    "examplesLabel": "En tu giro",
+    "signup": "Crear cuenta y probarlo",
+    "businessTypes": {
+      "restaurant": "Restaurante",
+      "cafe": "Café",
+      "services": "Servicios técnicos"
+    },
     "items": {
       "employees": {
         "title": "Personal",
-        "desc": "Expedientes, puestos y salarios de tu equipo en un solo lugar."
+        "desc": "Expedientes, puestos y salarios de tu equipo en un solo lugar.",
+        "problem": "Los datos de tu equipo andan en libretas, chats y hojas sueltas, y cuando necesitas un teléfono o un salario nadie sabe dónde está.",
+        "features": [
+          "Expediente por persona con puesto, área, salario, correo y teléfono",
+          "Empleados activos e inactivos, con búsqueda",
+          "Registro de entrada y salida desde la ficha de cada empleado"
+        ],
+        "examples": {
+          "restaurant": "Meseros, cocineros y lavalozas con su puesto y salario, listos para la nómina.",
+          "cafe": "Baristas de cada turno con su teléfono a la mano para cubrir faltas.",
+          "services": "Electricistas y ayudantes con su área, para saber a quién mandar."
+        }
       },
       "attendance": {
         "title": "Asistencia",
-        "desc": "Entradas, salidas, retardos y faltas registrados al día."
+        "desc": "Entradas, salidas, retardos y faltas registrados al día.",
+        "problem": "No sabes quién llegó tarde ni cuántas faltas hubo en el mes hasta que alguien se queja o llega la nómina.",
+        "features": [
+          "Registros del día marcados a tiempo, tarde o ausente",
+          "Filtros por rango de fechas, empleado y tipo",
+          "Resumen de asistencia de hoy en el dashboard"
+        ],
+        "examples": {
+          "restaurant": "Ves si la cocina abrió completa antes del servicio de la comida.",
+          "cafe": "Revisas los retardos del turno de la mañana sin estar en la barra.",
+          "services": "Sabes qué técnicos llegaron antes de repartir las órdenes del día."
+        }
       },
       "inventory": {
         "title": "Inventario",
-        "desc": "Productos, existencias y movimientos de entrada y salida."
+        "desc": "Productos, existencias y movimientos de entrada y salida.",
+        "problem": "Te enteras de que algo se acabó cuando un cliente lo pide, y el conteo vive en la memoria de una sola persona.",
+        "features": [
+          "Productos con SKU, costo, precio y existencia mínima",
+          "Entradas y salidas con nota, y aviso de stock bajo y agotados",
+          "Carga de productos desde una plantilla"
+        ],
+        "examples": {
+          "restaurant": "Sabes qué insumos están por acabarse antes de hacer el pedido al proveedor.",
+          "cafe": "Leche, café en grano y vasos con su mínimo, para resurtir a tiempo.",
+          "services": "Cable, contactos y focos con su existencia, y al armar una orden eliges el material del inventario."
+        }
       },
       "work_orders": {
         "title": "Órdenes de trabajo",
-        "desc": "Asigna, da seguimiento y cierra cada trabajo con su detalle."
+        "desc": "Asigna, da seguimiento y cierra cada trabajo con su detalle.",
+        "problem": "Los trabajos se piden por teléfono, se anotan donde se puede y nadie sabe en qué va cada uno ni quién lo tiene.",
+        "features": [
+          "Orden con responsable, prioridad, fecha y lista de tareas",
+          "Estados de pendiente a completada, con filtros por estado, prioridad y empleado",
+          "Conceptos de la orden tomados del inventario, con su precio"
+        ],
+        "examples": {
+          "restaurant": "Mantenimiento de la campana o reparación del refrigerador, con fecha y responsable.",
+          "cafe": "Servicio a la máquina de espresso con sus tareas y quién lo hace.",
+          "services": "Cada instalación o reparación con su técnico, sus tareas y el material del inventario."
+        }
       },
       "tickets": {
         "title": "Tickets",
-        "desc": "Cobra cada orden terminada con folio y PDF listo para enviar."
+        "desc": "Cobra cada orden terminada con folio y PDF listo para enviar.",
+        "problem": "Terminas el trabajo y el cobro se queda en el aire: no sabes qué está pagado y qué falta por cobrar.",
+        "features": [
+          "Ticket generado a partir de la orden terminada, con folio y conceptos",
+          "Descarga en PDF para enviarlo al cliente",
+          "Pendientes y pagados, con lo cobrado y lo que falta por cobrar"
+        ],
+        "examples": {
+          "restaurant": "Cobras un evento o un servicio a domicilio con su ticket en PDF.",
+          "cafe": "Cobras pedidos de oficina y ves cuáles siguen pendientes.",
+          "services": "Al cerrar la orden sale el ticket con los conceptos para cobrar al cliente."
+        }
       },
       "reports": {
         "title": "Reportes",
-        "desc": "Ingresos, gastos y nómina para decidir con datos."
+        "desc": "Ingresos, gastos y nómina para decidir con datos.",
+        "problem": "Al final del mes no sabes cuánto entró, cuánto salió ni cuánto te costó la nómina sin armar cuentas a mano.",
+        "features": [
+          "Ingresos, gastos y nómina por periodo",
+          "Vista semanal, mensual o anual con rango de fechas",
+          "Resumen junto con la asistencia del periodo"
+        ],
+        "examples": {
+          "restaurant": "Comparas los ingresos de cada mes contra lo que pagaste de nómina.",
+          "cafe": "Ves qué semanas vendiste más y cuánto gastaste en ellas.",
+          "services": "Sabes cuánto facturaste en el año y cuánto se fue en sueldos."
+        }
       },
       "whatsapp": {
         "title": "WhatsApp",
-        "desc": "Envía tickets y avisos a tus clientes por WhatsApp."
+        "desc": "Envía tickets a tus clientes por WhatsApp.",
+        "problem": "Mandar cada ticket a mano, buscando el número del cliente en el teléfono, se come el tiempo y a veces se olvida.",
+        "features": [
+          "Envío del ticket por WhatsApp desde su pantalla",
+          "El número del cliente se captura al enviar",
+          "Reenvío del mismo ticket cuando hace falta"
+        ],
+        "examples": {
+          "restaurant": "El cliente de un evento recibe su ticket en el chat que ya usa.",
+          "cafe": "Mandas el ticket de un pedido de oficina sin salir del panel.",
+          "services": "El cliente recibe el ticket del trabajo en cuanto el técnico termina."
+        }
       },
       "multi_company": {
         "title": "Varias empresas",
-        "desc": "Administra varias empresas o sucursales desde una cuenta."
+        "desc": "Varias empresas o sucursales en una cuenta.",
+        "problem": "Si llevas más de un negocio o sucursal, terminas con un sistema distinto para cada uno.",
+        "features": [
+          "Varias empresas o sucursales en una cuenta",
+          "Cada empresa con sus propios datos, separados de las demás",
+          "Incluido en el plan Empresa"
+        ],
+        "examples": {
+          "restaurant": "Dos sucursales del mismo restaurante, cada una con su personal e inventario.",
+          "cafe": "El café y el puesto de la plaza, con sus datos por separado.",
+          "services": "La empresa de instalaciones y la de mantenimiento en la misma cuenta."
+        }
       }
-    }
+    },
+    "switchLabel": "Ver ejemplos de"
   },
   "pricing": {
-    "title": "Precios claros",
-    "subtitle": "Empieza con 30 días gratis en cualquier plan. Sin tarjeta.",
+    "title": "Elige tu plan",
+    "subtitle": "Cada plan con su precio sin IVA, el IVA y el total. Empiezas con 30 días gratis.",
     "cycleLabel": "Periodicidad de pago",
     "monthly": "Mensual",
     "annual": "Anual",
     "annualNote": "2 meses gratis",
-    "perMonth": "/mes",
-    "perYear": "/año",
     "iva": "IVA ({rate}%)",
     "total": "Total con IVA",
     "includes": "Incluye",
     "recommended": "Recomendado",
-    "cta": "Probar 30 días gratis",
+    "cta": "Crear cuenta con este plan",
     "note": "Precios en pesos mexicanos (MXN) más IVA del {rate}%.",
     "plans": {
       "basic": {
@@ -87,15 +186,61 @@
       },
       "enterprise": {
         "name": "Empresa",
-        "desc": "Todo Pro más WhatsApp y varias empresas o sucursales"
+        "desc": "Todo Pro más WhatsApp y varias empresas o sucursales en una cuenta"
       }
-    }
+    },
+    "beforeTax": "sin IVA",
+    "perMonthLong": "al mes",
+    "perYearLong": "al año"
   },
   "footer": {
     "tagline": "Tecnología y automatización",
     "nav": "Enlaces del pie de página",
     "modules": "Módulos",
     "pricing": "Precios",
-    "rights": "© {year} Draxuvo. Todos los derechos reservados."
+    "rights": "© {year} Draxuvo. Todos los derechos reservados.",
+    "plans": "Planes",
+    "screens": "El panel",
+    "login": "Iniciar sesión",
+    "signup": "Crear cuenta"
+  },
+  "carousel": {
+    "title": "Así se ve tu panel",
+    "subtitle": "Pantallas reales del panel con datos de demostración. Una pantalla a la vez.",
+    "label": "Pantallas del panel",
+    "prev": "Pantalla anterior",
+    "next": "Siguiente pantalla",
+    "goTo": "Ver la pantalla {n}",
+    "position": "{n} de {total}",
+    "slides": {
+      "dashboard": {
+        "caption": "Dashboard: el día de tu negocio en una pantalla, y cada número abre su lista.",
+        "alt": "Dashboard del panel con tarjetas de empleados, órdenes de trabajo, tickets, cobrado, productos, stock bajo y asistencia de hoy, y gráficas de órdenes por estado y por prioridad."
+      },
+      "ordenes": {
+        "caption": "Órdenes de trabajo: quién la tiene, su prioridad y cuántas tareas van.",
+        "alt": "Lista de órdenes de trabajo con filtros por estado, prioridad y empleado; cada orden muestra su prioridad, estado, responsable, fecha y avance de tareas."
+      },
+      "inventario": {
+        "caption": "Inventario filtrado por stock bajo: lo que hay que resurtir.",
+        "alt": "Inventario con el filtro de stock bajo aplicado: tabla de productos con SKU, nombre, existencias y costo."
+      },
+      "asistencia": {
+        "caption": "Asistencia de hoy: quién llegó a tiempo, tarde o faltó.",
+        "alt": "Pantalla de asistencia con filtros de fechas, empleado y tipo, y una tabla de registros marcados a tiempo, tarde o ausente."
+      },
+      "suscripcion": {
+        "caption": "Suscripción: tu plan, el total con IVA y los módulos que tienes activos.",
+        "alt": "Pantalla de suscripción con el plan Pro activo, periodicidad mensual, total con IVA, la próxima renovación y los módulos con su interruptor."
+      }
+    },
+    "roledescription": "carrusel",
+    "slideRole": "pantalla"
+  },
+  "closing": {
+    "title": "¿Ya sabes qué plan te toca?",
+    "subtitle": "Crea tu cuenta, elige el plan y usa todo 30 días gratis. Sin tarjeta.",
+    "signup": "Crear cuenta",
+    "plans": "Volver a los planes"
   }
 }

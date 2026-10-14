@@ -24,13 +24,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <Hero />
         <PricingSection catalog={catalog} />
 
-        <section id="panel" aria-labelledby="panel-title" className="scroll-mt-20 border-b-2 border-tinta pt-16 pb-12 sm:pt-24">
+        <section id="panel" aria-labelledby="panel-title" className="scroll-mt-16 pt-16 sm:pt-24">
           <div className="mx-auto max-w-[72rem] px-4 sm:px-6">
             <h2 id="panel-title" className="font-display text-[2.5rem] leading-none font-extrabold uppercase sm:text-5xl">
               {tc("title")}
             </h2>
-            <p className="mt-3 mb-8 max-w-[60ch] text-gris-texto">{tc("subtitle")}</p>
-            <ProductCarousel />
+            <p className="mt-3 max-w-[60ch] text-gris-texto">{tc("subtitle")}</p>
+          </div>
+          <div className="mt-8 border-y-2 border-tinta bg-ceja">
+            <div className="mx-auto max-w-[72rem] px-4 py-6 sm:px-6 sm:py-8">
+              <ProductCarousel />
+            </div>
           </div>
         </section>
 

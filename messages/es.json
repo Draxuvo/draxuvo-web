@@ -159,7 +159,8 @@
           "services": "La empresa de instalaciones y la de mantenimiento en la misma cuenta."
         }
       }
-    }
+    },
+    "switchLabel": "Ver ejemplos de"
   },
   "pricing": {
     "title": "Elige tu plan",

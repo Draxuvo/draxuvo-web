@@ -159,7 +159,8 @@
           "services": "The installation company and the maintenance company in the same account."
         }
       }
-    }
+    },
+    "switchLabel": "Show examples for"
   },
   "pricing": {
     "title": "Pick your plan",

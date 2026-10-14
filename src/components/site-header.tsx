@@ -9,7 +9,7 @@ export function SiteHeader({ locale }: { locale: string }) {
   const t = useTranslations("nav");
 
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-tinta bg-anaquel/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b-2 border-tinta bg-anaquel">
       <div className="mx-auto flex h-16 max-w-[72rem] items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6">
         <Link href={`/${locale}`} aria-label={t("home")} className="flex shrink-0 items-center rounded-etiqueta">
           <BrandMark />

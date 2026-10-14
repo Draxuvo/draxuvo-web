@@ -102,3 +102,10 @@ body {
     display: none;
   }
 }
+
+/* Selector de giro en módulos: radios nativos; sin :has() se ven los tres ejemplos. */
+.giros:has(input[value="restaurant"]:checked) [data-giro]:not([data-giro="restaurant"]),
+.giros:has(input[value="cafe"]:checked) [data-giro]:not([data-giro="cafe"]),
+.giros:has(input[value="services"]:checked) [data-giro]:not([data-giro="services"]) {
+  display: none;
+}

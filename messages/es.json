@@ -160,7 +160,23 @@
         }
       }
     },
-    "switchLabel": "Ver ejemplos de"
+    "switchLabel": "Ver ejemplos de",
+    "artAlt": {
+      "employees": "Fichas de personal que se ordenan una tras otra",
+      "attendance": "Calendario con marcas de asistencia que aparecen",
+      "inventory": "Barras de existencias que suben",
+      "work_orders": "Lista de tareas que se van marcando",
+      "tickets": "Ticket que se imprime con sus conceptos",
+      "reports": "Gráfica de barras que crece",
+      "whatsapp": "Burbuja de mensaje que se envía",
+      "multi_company": "Dos sucursales conectadas a una cuenta"
+    },
+    "pasilloLabel": "Módulos",
+    "pasilloHint": "Desliza para ver más módulos",
+    "prevModule": "Módulo anterior",
+    "nextModule": "Siguiente módulo",
+    "position": "{n} de {total}",
+    "replay": "Repetir la animación"
   },
   "pricing": {
     "title": "Elige tu plan",
@@ -235,12 +251,93 @@
       }
     },
     "roledescription": "carrusel",
-    "slideRole": "pantalla"
+    "slideRole": "pantalla",
+    "dragHint": "Arrastra para cambiar de pantalla"
   },
   "closing": {
     "title": "¿Ya sabes qué plan te toca?",
     "subtitle": "Crea tu cuenta, elige el plan y usa todo 30 días gratis. Sin tarjeta.",
     "signup": "Crear cuenta",
     "plans": "Volver a los planes"
+  },
+  "finder": {
+    "title": "¿Qué necesitas? Te decimos qué plan conviene",
+    "groupLabel": "Lo que necesitas",
+    "needs": {
+      "work_orders": "Llevo órdenes de trabajo",
+      "tickets": "Cobro con tickets",
+      "whatsapp": "Mando tickets por WhatsApp",
+      "multi_company": "Tengo más de una empresa"
+    },
+    "empty": "Marca lo que necesitas y el plan que conviene se adelanta.",
+    "badge": "Te conviene",
+    "reason": "El plan {plan} es el más barato que incluye {needs}.",
+    "noMatch": "Ningún plan cubre todo lo que marcaste junto. Escríbenos y lo armamos.",
+    "clear": "Quitar selección"
+  },
+  "viewer": {
+    "open": "Ampliar pantalla",
+    "close": "Cerrar",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "label": "Pantalla ampliada",
+    "hint": "Pellizca o toca dos veces para acercar. Arrastra hacia abajo para cerrar."
+  },
+  "flow": {
+    "title": "Del trabajo al cobro en cinco pasos",
+    "subtitle": "Avanza y retrocede con los botones, las flechas o deslizando.",
+    "demoLabel": "Datos de demostración",
+    "region": "Demo del flujo de una orden de trabajo a un ticket cobrado",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "restart": "Empezar de nuevo",
+    "stepLabel": "Paso {n} de {total}",
+    "steps": {
+      "pending": {
+        "title": "Llega la orden",
+        "desc": "Registras el trabajo con cliente, prioridad y fecha. Queda pendiente."
+      },
+      "progress": {
+        "title": "Se asigna y arranca",
+        "desc": "Eliges al responsable y la orden pasa a en progreso."
+      },
+      "items": {
+        "title": "Agregas los conceptos",
+        "desc": "Mano de obra y material del inventario, con su precio. El total se calcula solo."
+      },
+      "done": {
+        "title": "Se completa",
+        "desc": "El técnico termina y la orden queda lista para cobrar."
+      },
+      "paid": {
+        "title": "Ticket cobrado",
+        "desc": "Sale el ticket con folio y PDF, y queda marcado como pagado."
+      }
+    },
+    "status": {
+      "pending": "Pendiente",
+      "progress": "En progreso",
+      "items": "En progreso",
+      "done": "Completada",
+      "paid": "Cobrada"
+    },
+    "order": "Orden",
+    "orderName": "Instalación de contactos",
+    "client": "Cliente",
+    "clientName": "Café La Plaza",
+    "assignee": "Responsable",
+    "assigneeName": "Marco R.",
+    "items": "Conceptos",
+    "total": "Total",
+    "folio": "Folio",
+    "itemNames": {
+      "labor": "Mano de obra",
+      "cable": "Cable calibre 12",
+      "outlet": "Contactos dobles"
+    },
+    "paidStamp": "Pagado"
+  },
+  "progress": {
+    "label": "Avance de lectura"
   }
 }

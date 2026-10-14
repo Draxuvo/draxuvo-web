@@ -1,12 +1,28 @@
-import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { Hero } from "@/components/hero";
+import { ModulesSection } from "@/components/modules-section";
+import { PricingSection } from "@/components/pricing-section";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { getPlans } from "@/lib/plans";
 
-export default function HomePage() {
-  const t = useTranslations("hero");
+// La tabla de precios se regenera cada hora con GET /api/v1/plans.
+export const revalidate = 3600;
+
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const catalog = await getPlans();
 
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center">
-      <h1 className="text-5xl font-bold tracking-tight">Draxuvo</h1>
-      <p className="text-lg text-neutral-600">{t("tagline")}</p>
-    </main>
+    <>
+      <SiteHeader locale={locale} />
+      <main className="flex-1">
+        <Hero />
+        <ModulesSection />
+        <PricingSection catalog={catalog} />
+      </main>
+      <SiteFooter />
+    </>
   );
 }

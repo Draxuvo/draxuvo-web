@@ -1,9 +1,101 @@
 {
   "meta": {
     "title": "Draxuvo · Technology and automation",
-    "description": "Modular ERP for businesses: employees, attendance, inventory, work orders and more."
+    "description": "Modular ERP for businesses: staff, attendance, inventory, work orders, tickets and reports."
+  },
+  "nav": {
+    "main": "Main navigation",
+    "modules": "Modules",
+    "pricing": "Pricing",
+    "login": "Sign in",
+    "start": "Free trial",
+    "language": "Language",
+    "languages": {
+      "es": "Español",
+      "en": "English"
+    }
   },
   "hero": {
-    "tagline": "Technology and automation"
+    "tagline": "Technology and automation",
+    "title": "Your whole business in one system",
+    "subtitle": "Modular ERP for businesses: staff, attendance, inventory, work orders, tickets and reports.",
+    "ctaPrimary": "Try 30 days free",
+    "ctaSecondary": "See modules",
+    "trialNote": "30 days free, no card required. Cancel anytime."
+  },
+  "modules": {
+    "title": "Modules for every part of your operation",
+    "subtitle": "Turn on what you need today and add more as your business grows.",
+    "items": {
+      "employees": {
+        "title": "Staff",
+        "desc": "Records, positions and salaries for your team in one place."
+      },
+      "attendance": {
+        "title": "Attendance",
+        "desc": "Check-ins, check-outs, late arrivals and absences, up to date."
+      },
+      "inventory": {
+        "title": "Inventory",
+        "desc": "Products, stock levels and incoming and outgoing movements."
+      },
+      "work_orders": {
+        "title": "Work orders",
+        "desc": "Assign, track and close every job with its details."
+      },
+      "tickets": {
+        "title": "Tickets",
+        "desc": "Bill every finished order with a folio and a ready-to-send PDF."
+      },
+      "reports": {
+        "title": "Reports",
+        "desc": "Income, expenses and payroll to decide with data."
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "desc": "Send tickets and updates to your customers on WhatsApp."
+      },
+      "multi_company": {
+        "title": "Multiple companies",
+        "desc": "Manage several companies or branches from one account."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Simple pricing",
+    "subtitle": "Start with 30 days free on any plan. No card required.",
+    "cycleLabel": "Billing cycle",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "annualNote": "2 months free",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "iva": "VAT ({rate}%)",
+    "total": "Total with VAT",
+    "includes": "Includes",
+    "recommended": "Recommended",
+    "cta": "Try 30 days free",
+    "note": "Prices in Mexican pesos (MXN) plus {rate}% VAT.",
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "desc": "Staff, attendance and inventory"
+      },
+      "pro": {
+        "name": "Pro",
+        "desc": "Everything in Basic plus work orders, tickets and reports"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "desc": "Everything in Pro plus WhatsApp and multiple companies or branches"
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Technology and automation",
+    "nav": "Footer links",
+    "modules": "Modules",
+    "pricing": "Pricing",
+    "rights": "© {year} Draxuvo. All rights reserved."
   }
 }

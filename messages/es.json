@@ -1,9 +1,101 @@
 {
   "meta": {
     "title": "Draxuvo · Tecnología y automatización",
-    "description": "ERP modular para negocios: empleados, asistencia, inventario, órdenes de trabajo y más."
+    "description": "ERP modular para negocios: personal, asistencia, inventario, órdenes de trabajo, tickets y reportes."
+  },
+  "nav": {
+    "main": "Navegación principal",
+    "modules": "Módulos",
+    "pricing": "Precios",
+    "login": "Iniciar sesión",
+    "start": "Prueba gratis",
+    "language": "Idioma",
+    "languages": {
+      "es": "Español",
+      "en": "English"
+    }
   },
   "hero": {
-    "tagline": "Tecnología y automatización"
+    "tagline": "Tecnología y automatización",
+    "title": "Todo tu negocio en un solo sistema",
+    "subtitle": "ERP modular para negocios: personal, asistencia, inventario, órdenes de trabajo, tickets y reportes.",
+    "ctaPrimary": "Probar 30 días gratis",
+    "ctaSecondary": "Ver módulos",
+    "trialNote": "30 días gratis, sin tarjeta. Cancela cuando quieras."
+  },
+  "modules": {
+    "title": "Módulos para cada parte de tu operación",
+    "subtitle": "Activa los que necesitas hoy y suma más cuando tu negocio crezca.",
+    "items": {
+      "employees": {
+        "title": "Personal",
+        "desc": "Expedientes, puestos y salarios de tu equipo en un solo lugar."
+      },
+      "attendance": {
+        "title": "Asistencia",
+        "desc": "Entradas, salidas, retardos y faltas registrados al día."
+      },
+      "inventory": {
+        "title": "Inventario",
+        "desc": "Productos, existencias y movimientos de entrada y salida."
+      },
+      "work_orders": {
+        "title": "Órdenes de trabajo",
+        "desc": "Asigna, da seguimiento y cierra cada trabajo con su detalle."
+      },
+      "tickets": {
+        "title": "Tickets",
+        "desc": "Cobra cada orden terminada con folio y PDF listo para enviar."
+      },
+      "reports": {
+        "title": "Reportes",
+        "desc": "Ingresos, gastos y nómina para decidir con datos."
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "desc": "Envía tickets y avisos a tus clientes por WhatsApp."
+      },
+      "multi_company": {
+        "title": "Varias empresas",
+        "desc": "Administra varias empresas o sucursales desde una cuenta."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Precios claros",
+    "subtitle": "Empieza con 30 días gratis en cualquier plan. Sin tarjeta.",
+    "cycleLabel": "Periodicidad de pago",
+    "monthly": "Mensual",
+    "annual": "Anual",
+    "annualNote": "2 meses gratis",
+    "perMonth": "/mes",
+    "perYear": "/año",
+    "iva": "IVA ({rate}%)",
+    "total": "Total con IVA",
+    "includes": "Incluye",
+    "recommended": "Recomendado",
+    "cta": "Probar 30 días gratis",
+    "note": "Precios en pesos mexicanos (MXN) más IVA del {rate}%.",
+    "plans": {
+      "basic": {
+        "name": "Básico",
+        "desc": "Personal, asistencia e inventario"
+      },
+      "pro": {
+        "name": "Pro",
+        "desc": "Todo Básico más órdenes de trabajo, tickets y reportes"
+      },
+      "enterprise": {
+        "name": "Empresa",
+        "desc": "Todo Pro más WhatsApp y varias empresas o sucursales"
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Tecnología y automatización",
+    "nav": "Enlaces del pie de página",
+    "modules": "Módulos",
+    "pricing": "Precios",
+    "rights": "© {year} Draxuvo. Todos los derechos reservados."
   }
 }

@@ -160,7 +160,23 @@
         }
       }
     },
-    "switchLabel": "Show examples for"
+    "switchLabel": "Show examples for",
+    "artAlt": {
+      "employees": "Staff cards lining up one after another",
+      "attendance": "Calendar with attendance marks appearing",
+      "inventory": "Stock bars rising",
+      "work_orders": "Task list being checked off",
+      "tickets": "Ticket printing with its line items",
+      "reports": "Bar chart growing",
+      "whatsapp": "Message bubble being sent",
+      "multi_company": "Two branches connected to one account"
+    },
+    "pasilloLabel": "Modules",
+    "pasilloHint": "Swipe to see more modules",
+    "prevModule": "Previous module",
+    "nextModule": "Next module",
+    "position": "{n} of {total}",
+    "replay": "Replay the animation"
   },
   "pricing": {
     "title": "Pick your plan",
@@ -235,12 +251,93 @@
       }
     },
     "roledescription": "carousel",
-    "slideRole": "screen"
+    "slideRole": "screen",
+    "dragHint": "Drag to change screen"
   },
   "closing": {
     "title": "Know which plan fits you?",
     "subtitle": "Create your account, pick the plan and use everything free for 30 days. No card required.",
     "signup": "Sign up",
     "plans": "Back to the plans"
+  },
+  "finder": {
+    "title": "What do you need? We tell you which plan fits",
+    "groupLabel": "What you need",
+    "needs": {
+      "work_orders": "I manage work orders",
+      "tickets": "I charge with tickets",
+      "whatsapp": "I send tickets by WhatsApp",
+      "multi_company": "I have more than one business"
+    },
+    "empty": "Check what you need and the plan that fits moves forward.",
+    "badge": "Best fit",
+    "reason": "The {plan} plan is the cheapest one that includes {needs}.",
+    "noMatch": "No plan covers everything you checked together. Write to us and we will put it together.",
+    "clear": "Clear selection"
+  },
+  "viewer": {
+    "open": "Enlarge screen",
+    "close": "Close",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "label": "Enlarged screen",
+    "hint": "Pinch or double-tap to zoom. Drag down to close."
+  },
+  "flow": {
+    "title": "From job to payment in five steps",
+    "subtitle": "Move forward and back with the buttons, the arrow keys or by swiping.",
+    "demoLabel": "Demo data",
+    "region": "Demo of the flow from a work order to a paid ticket",
+    "prev": "Previous",
+    "next": "Next",
+    "restart": "Start over",
+    "stepLabel": "Step {n} of {total}",
+    "steps": {
+      "pending": {
+        "title": "The order arrives",
+        "desc": "You log the job with client, priority and date. It stays pending."
+      },
+      "progress": {
+        "title": "It is assigned and starts",
+        "desc": "You pick who is responsible and the order moves to in progress."
+      },
+      "items": {
+        "title": "You add the line items",
+        "desc": "Labor and inventory material, with their price. The total is calculated for you."
+      },
+      "done": {
+        "title": "It is completed",
+        "desc": "The technician finishes and the order is ready to charge."
+      },
+      "paid": {
+        "title": "Ticket paid",
+        "desc": "The ticket comes out with a number and a PDF, marked as paid."
+      }
+    },
+    "status": {
+      "pending": "Pending",
+      "progress": "In progress",
+      "items": "In progress",
+      "done": "Completed",
+      "paid": "Paid"
+    },
+    "order": "Order",
+    "orderName": "Outlet installation",
+    "client": "Client",
+    "clientName": "La Plaza Café",
+    "assignee": "Assigned to",
+    "assigneeName": "Marco R.",
+    "items": "Line items",
+    "total": "Total",
+    "folio": "Number",
+    "itemNames": {
+      "labor": "Labor",
+      "cable": "12 gauge cable",
+      "outlet": "Double outlets"
+    },
+    "paidStamp": "Paid"
+  },
+  "progress": {
+    "label": "Reading progress"
   }
 }

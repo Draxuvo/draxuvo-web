@@ -99,3 +99,15 @@ export function registrationUrl(locale: string, planKey: PlanKey, cycle: Billing
   const ciclo = cycle === "annual" ? "anual" : "mensual";
   return `${uiBaseUrl()}/${locale}/registro?plan=${planKey}&ciclo=${ciclo}`;
 }
+
+// Necesidades del buscador de plan: son módulos ("más de una empresa" es multi_company).
+export type Need = ModuleKey;
+
+// El plan más barato (por total mensual) que incluye todas las necesidades. Sin necesidades, o si
+// ningún plan las cubre, devuelve null. No depende del ciclo de cobro.
+export function suggestPlan(needs: Need[], catalog: PlansResponse): Plan | null {
+  if (needs.length === 0) return null;
+  const covering = catalog.plans.filter((plan) => needs.every((need) => plan.modules.includes(need)));
+  if (covering.length === 0) return null;
+  return covering.reduce((best, plan) => (plan.prices.monthly.total_cents < best.prices.monthly.total_cents ? plan : best));
+}

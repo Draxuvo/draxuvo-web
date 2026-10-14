@@ -4,12 +4,14 @@ import { routing } from "@/i18n/routing";
 import { uiBaseUrl } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 import { BrandMark } from "./brand-mark";
+import { SectionFocus } from "./section-focus";
 
 export function SiteHeader({ locale }: { locale: string }) {
   const t = useTranslations("nav");
 
   return (
     <header className="sticky top-0 z-40 border-b-2 border-tinta bg-anaquel">
+      <SectionFocus />
       <div className="mx-auto flex h-16 max-w-[72rem] items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6">
         <Link href={`/${locale}`} aria-label={t("home")} className="flex shrink-0 items-center rounded-etiqueta">
           <BrandMark />
@@ -19,9 +21,9 @@ export function SiteHeader({ locale }: { locale: string }) {
         </Link>
 
         <nav aria-label={t("main")} className="hidden items-center gap-6 text-[0.9375rem] font-medium lg:flex">
-          <a href="#precios" className="underline-offset-4 hover:underline">{t("plans")}</a>
-          <a href="#panel" className="underline-offset-4 hover:underline">{t("screens")}</a>
-          <a href="#modulos" className="underline-offset-4 hover:underline">{t("modules")}</a>
+          <a href="#precios" className="draw-underline pb-0.5">{t("plans")}</a>
+          <a href="#panel" className="draw-underline pb-0.5">{t("screens")}</a>
+          <a href="#modulos" className="draw-underline pb-0.5">{t("modules")}</a>
         </nav>
 
         <div className="flex items-center gap-1.5 sm:gap-3">
@@ -45,13 +47,13 @@ export function SiteHeader({ locale }: { locale: string }) {
           </nav>
           <a
             href={`${uiBaseUrl()}/${locale}/login`}
-            className="rounded-etiqueta border-2 border-tinta px-2 py-1.5 text-[0.8125rem] font-semibold whitespace-nowrap transition-colors duration-120 hover:bg-etiqueta sm:px-3 sm:text-sm"
+            className="rounded-etiqueta border-2 border-tinta px-2 py-1.5 text-[0.8125rem] font-semibold whitespace-nowrap transition-colors duration-120 press hover:bg-etiqueta sm:px-3 sm:text-sm"
           >
             {t("login")}
           </a>
           <a
             href={`${uiBaseUrl()}/${locale}/registro`}
-            className="notch notch-sm rounded-etiqueta border-2 border-tinta bg-oferta py-1.5 pr-2 pl-3 text-[0.8125rem] font-semibold whitespace-nowrap text-tinta transition-colors duration-120 [--notch-line:var(--color-tinta)] hover:bg-oferta-hover sm:pr-3 sm:pl-4 sm:text-sm"
+            className="press notch notch-sm rounded-etiqueta border-2 border-tinta bg-oferta py-1.5 pr-2 pl-3 text-[0.8125rem] font-semibold whitespace-nowrap text-tinta transition-colors duration-120 [--notch-line:var(--color-tinta)] hover:bg-oferta-hover sm:pr-3 sm:pl-4 sm:text-sm"
           >
             {t("signup")}
           </a>

@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Check } from "lucide-react";
-import { type BillingCycle, type PlansResponse, registrationUrl } from "@/lib/plans";
+import { m } from "motion/react";
+import { type BillingCycle, type Need, type PlansResponse, registrationUrl, suggestPlan } from "@/lib/plans";
 import { cn } from "@/lib/utils";
+import { PlanFinder } from "./plan-finder";
+import { TiltTag } from "./tilt-tag";
 
 const CYCLES: BillingCycle[] = ["monthly", "annual"];
 const CHOSEN_PLAN = "pro";
@@ -32,6 +35,13 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
   const [cycle, setCycle] = useState<BillingCycle>("monthly");
   // El giro de reetiquetado solo corre después de que el visitante cambia el ciclo.
   const [relabeled, setRelabeled] = useState(false);
+  const [needs, setNeeds] = useState<Need[]>([]);
+  const suggested = suggestPlan(needs, catalog);
+  const tf = useTranslations("finder");
+
+  function toggleNeed(need: Need) {
+    setNeeds((current) => (current.includes(need) ? current.filter((value) => value !== need) : [...current, need]));
+  }
 
   const money = new Intl.NumberFormat(locale === "en" ? "en-US" : "es-MX", {
     style: "currency",
@@ -79,23 +89,38 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
             </div>
           </div>
 
-          <ul className="no-scrollbar -mx-4 mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pt-3 pb-1 sm:-mx-6 sm:scroll-px-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:px-0">
+          <PlanFinder
+            needs={needs}
+            onToggle={toggleNeed}
+            onClear={() => setNeeds([])}
+            suggestedName={suggested ? t(`plans.${suggested.key}.name`) : null}
+          />
+
+          <ul className="no-scrollbar -mx-4 mt-3 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pt-5 pb-3 sm:-mx-6 sm:scroll-px-6 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:px-0">
             {catalog.plans.map((plan, index) => {
               const price = plan.prices[cycle];
               const chosen = plan.key === CHOSEN_PLAN;
               const nameId = `plan-${plan.key}`;
+              const isSuggested = suggested?.key === plan.key;
+              const showSeal = suggested ? isSuggested : chosen;
               return (
-                <li
+                <m.li
                   key={plan.key}
+                  animate={{ y: isSuggested ? -8 : 0 }}
+                  className="flex w-[80%] max-w-[22rem] shrink-0 snap-start flex-col lg:w-auto lg:max-w-none"
+                >
+                <TiltTag
+                  as="div"
                   aria-labelledby={nameId}
+                  style={{ "--d": `${450 + index * 90}ms` } as CSSProperties}
                   className={cn(
-                    "notch flex w-[80%] max-w-[22rem] shrink-0 snap-start flex-col rounded-etiqueta border-2 border-tinta bg-etiqueta py-4 pr-4 pl-6 shadow-etiqueta [--notch-bg:var(--color-ceja)] [--notch-line:var(--color-tinta)] lg:w-auto lg:max-w-none",
-                    chosen && "outline-4 outline-offset-0 outline-oferta",
+                    "notch hero-stick flex h-full flex-col rounded-etiqueta border-2 border-tinta bg-etiqueta py-4 pr-4 pl-6 shadow-etiqueta [--notch-bg:var(--color-ceja)] [--notch-line:var(--color-tinta)]",
+                    (chosen && !suggested) || isSuggested ? "outline-4 outline-offset-0 outline-oferta" : "",
                   )}
                 >
-                  {chosen && (
+                  {showSeal && (
                     <p className="absolute -top-3 right-4 rotate-[5deg] rounded-[4px] border-2 border-tinta bg-oferta px-2 py-0.5 text-[0.8125rem] font-semibold tracking-[0.06em] text-tinta uppercase shadow-etiqueta">
-                      {t("recommended")}
+                      {isSuggested ? tf("badge") : t("recommended")}
                     </p>
                   )}
                   <h3 id={nameId} className="font-display text-[1.75rem] leading-none font-extrabold uppercase">
@@ -130,13 +155,14 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
                     href={registrationUrl(locale, plan.key, cycle)}
                     aria-describedby={nameId}
                     className={cn(
-                      "mt-auto rounded-etiqueta border-2 border-tinta px-3 py-2 text-center font-semibold text-tinta transition-colors duration-120",
-                      chosen ? "bg-oferta hover:bg-oferta-hover" : "bg-etiqueta hover:bg-ceja",
+                      "press mt-auto rounded-etiqueta border-2 border-tinta px-3 py-2 text-center font-semibold text-tinta transition-colors duration-120",
+                      showSeal ? "bg-oferta hover:bg-oferta-hover" : "bg-etiqueta hover:bg-ceja",
                     )}
                   >
                     {t("cta")}
                   </a>
-                </li>
+                </TiltTag>
+                </m.li>
               );
             })}
           </ul>

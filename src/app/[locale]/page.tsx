@@ -1,8 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { FlowDemo } from "@/components/flow-demo";
 import { Hero } from "@/components/hero";
 import { ModuleShowcase } from "@/components/module-showcase";
+import { MotionProvider } from "@/components/motion-provider";
 import { PricingSection } from "@/components/pricing-section";
 import { ProductCarousel } from "@/components/product-carousel";
+import { ReadingProgress } from "@/components/reading-progress";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getPlans, uiBaseUrl } from "@/lib/plans";
@@ -18,7 +21,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const tz = await getTranslations("closing");
 
   return (
-    <>
+    <MotionProvider>
+      <ReadingProgress />
       <SiteHeader locale={locale} />
       <main className="flex-1">
         <Hero />
@@ -36,6 +40,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <ProductCarousel />
             </div>
           </div>
+          <FlowDemo />
         </section>
 
         <ModuleShowcase catalog={catalog} />
@@ -51,7 +56,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <div className="flex flex-wrap items-center gap-4">
               <a
                 href={`${uiBaseUrl()}/${locale}/registro`}
-                className="notch rounded-etiqueta border-2 border-tinta bg-oferta py-3 pr-6 pl-8 font-display text-2xl leading-none font-extrabold text-tinta uppercase shadow-etiqueta transition-colors duration-120 [--notch-bg:var(--color-ceja)] [--notch-line:var(--color-tinta)] hover:bg-oferta-hover"
+                className="press notch rounded-etiqueta border-2 border-tinta bg-oferta py-3 pr-6 pl-8 font-display text-2xl leading-none font-extrabold text-tinta uppercase shadow-etiqueta transition-colors duration-120 [--notch-bg:var(--color-ceja)] [--notch-line:var(--color-tinta)] hover:bg-oferta-hover"
               >
                 {tz("signup")}
               </a>
@@ -63,6 +68,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </section>
       </main>
       <SiteFooter />
-    </>
+    </MotionProvider>
   );
 }

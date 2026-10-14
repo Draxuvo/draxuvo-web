@@ -109,3 +109,182 @@ body {
 .giros:has(input[value="services"]:checked) [data-giro]:not([data-giro="services"]) {
   display: none;
 }
+
+/* Movimiento del sitio (spec 005). Todo bajo no-preference: con "reducir movimiento" cada pieza
+   queda en su estado final. Curva única: --ease-etiqueta. */
+.press {
+  transition: translate 90ms var(--ease-etiqueta), box-shadow 90ms var(--ease-etiqueta);
+}
+
+.press:active {
+  translate: 0 1px;
+  box-shadow: none;
+}
+
+[data-tilt="on"] {
+  transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 120ms var(--ease-etiqueta), box-shadow 120ms var(--ease-etiqueta);
+  box-shadow: calc(var(--sx, 0) * 1px) calc(2px + var(--sy, 0) * 1px) 6px rgba(20, 20, 20, 0.1);
+}
+
+.draw-underline {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0% 2px no-repeat;
+  transition: background-size 180ms var(--ease-etiqueta);
+}
+
+.draw-underline:hover,
+.draw-underline:focus-visible {
+  background-size: 100% 2px;
+}
+
+@keyframes print {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes stick {
+  from {
+    translate: 0 -14px;
+    rotate: -4deg;
+  }
+  to {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes settle {
+  from {
+    translate: 0 6px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes viewer-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes art-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes art-pop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes art-slide {
+  from {
+    transform: translateX(-24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes art-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-print {
+    animation: print 600ms var(--ease-etiqueta) both;
+  }
+
+  .hero-rise {
+    animation: rise 300ms var(--ease-etiqueta) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .hero-stick {
+    animation: stick 360ms var(--ease-etiqueta) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .status-in {
+    animation: rise 180ms var(--ease-etiqueta) both;
+  }
+
+  .hero-settle {
+    animation: settle 300ms var(--ease-etiqueta) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  dialog.viewer[open] {
+    animation: viewer-in 180ms var(--ease-etiqueta) both;
+  }
+
+  [data-play="true"] .art-grow {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: art-grow 420ms var(--ease-etiqueta) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+
+  [data-play="true"] .art-pop {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: art-pop 300ms var(--ease-etiqueta) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  [data-play="true"] .art-slide {
+    animation: art-slide 360ms var(--ease-etiqueta) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  [data-play="true"] .art-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: art-draw 600ms var(--ease-etiqueta) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+}
+
+/* Pasillo de módulos en celular: franja con snap; los módulos no atrapan el scroll vertical. */
+.pasillo-franja {
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+}

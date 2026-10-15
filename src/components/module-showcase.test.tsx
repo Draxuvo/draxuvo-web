@@ -1,6 +1,6 @@
-import { screen, within } from "@testing-library/react";
+import { fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { FALLBACK_PLANS } from "@/lib/plans";
 import { setMediaMatches } from "@/test/setup";
 import { renderWithProviders } from "@/test/render";
@@ -89,6 +89,78 @@ describe("ModuleShowcase", () => {
       pinta();
       expect(screen.queryByText("1 de 8")).toBeNull();
       expect(screen.queryByRole("group", { name: "Módulos" })).toBeNull();
+    });
+  });
+
+  describe("pasillo en escritorio", () => {
+    // El contenedor mide 8000 px y el panel pegajoso 1000: cada módulo ocupa 1000 px de recorrido.
+    const alturas = vi.spyOn(HTMLElement.prototype, "offsetHeight", "get");
+    afterEach(() => alturas.mockReset());
+
+    function pintaPasillo() {
+      alturas.mockImplementation(function (this: HTMLElement) {
+        return this.style.height.startsWith("calc") ? 8000 : 1000;
+      });
+      setMediaMatches(DESKTOP, true);
+      const scrollTo = vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+      pinta();
+      return scrollTo;
+    }
+    const top = (scrollTo: ReturnType<typeof vi.spyOn>, llamada = -1) => (scrollTo.mock.calls.at(llamada)![0] as ScrollToOptions).top!;
+
+    it("un chip no navega por ancla: desplaza la página hasta su módulo", async () => {
+      const scrollTo = pintaPasillo();
+      await userEvent.click(screen.getByRole("link", { name: "Personal" }));
+      const primero = top(scrollTo);
+      await userEvent.click(screen.getByRole("link", { name: "Inventario" }));
+      expect(top(scrollTo) - primero).toBe(2000);
+      expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ behavior: "smooth" }));
+    });
+
+    it("la flecha derecha pasa al módulo siguiente y la izquierda no baja del primero", () => {
+      const scrollTo = pintaPasillo();
+      const seccion = screen.getByRole("radio", { name: "Restaurante" }).closest("section")!;
+      fireEvent.keyDown(seccion, { key: "ArrowLeft" });
+      const primero = top(scrollTo);
+      fireEvent.keyDown(seccion, { key: "ArrowRight" });
+      expect(top(scrollTo) - primero).toBe(1000);
+    });
+
+    it("otras teclas y las flechas dentro de un radio no mueven el pasillo", () => {
+      const scrollTo = pintaPasillo();
+      const seccion = screen.getByRole("radio", { name: "Restaurante" }).closest("section")!;
+      fireEvent.keyDown(seccion, { key: "Enter" });
+      fireEvent.keyDown(screen.getByRole("radio", { name: "Café" }), { key: "ArrowRight" });
+      expect(scrollTo).not.toHaveBeenCalled();
+    });
+
+    it("al enfocar un módulo que no es el activo, el pasillo lo trae a la vista", () => {
+      const scrollTo = pintaPasillo();
+      fireEvent.focus(document.getElementById("modulo-inventory")!);
+      expect(scrollTo).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("franja en pantalla chica", () => {
+    it("las flechas desplazan la franja casi un ancho de pantalla", () => {
+      pinta();
+      const franja = screen.getByRole("group", { name: "Módulos" });
+      const scrollBy = vi.fn();
+      Object.defineProperty(franja, "scrollBy", { value: scrollBy });
+      Object.defineProperty(franja, "clientWidth", { value: 300 });
+      fireEvent.keyDown(franja, { key: "ArrowRight" });
+      expect(scrollBy).toHaveBeenLastCalledWith({ left: 264, behavior: "smooth" });
+      fireEvent.keyDown(franja, { key: "ArrowLeft" });
+      expect(scrollBy).toHaveBeenLastCalledWith({ left: -264, behavior: "smooth" });
+    });
+
+    it("un chip sigue siendo un enlace normal a su módulo", async () => {
+      const scrollTo = vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+      pinta();
+      const evento = new MouseEvent("click", { bubbles: true, cancelable: true });
+      screen.getByRole("link", { name: "Personal" }).dispatchEvent(evento);
+      expect(evento.defaultPrevented).toBe(false);
+      expect(scrollTo).not.toHaveBeenCalled();
     });
   });
 });

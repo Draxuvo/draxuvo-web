@@ -6,4 +6,4 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Pruebas
 
-`npm test` (Vitest + jsdom + Testing Library), `npm run lint` (`--max-warnings 0`) y `npx tsc --noEmit`. Las pruebas viven junto al código (`*.test.ts(x)`); `src/test/render.tsx` pinta con los mensajes reales de `messages/es.json` y `src/test/setup.ts` simula `matchMedia`, `motion/react` y `<dialog>`. CI en `.github/workflows/ci.yml`.
+`npm test` (Vitest + jsdom + Testing Library), `npm run lint` (`--max-warnings 0`) y `npx tsc --noEmit`. Las pruebas viven junto al código (`*.test.ts(x)`); `src/test/render.tsx` pinta con los mensajes reales de `messages/es.json` y `src/test/setup.ts` simula `matchMedia`, `motion/react` y `<dialog>`. CI en `.github/workflows/ci.yml`. Para gestos de arrastre (carrusel, visor) las pruebas usan `src/test/motion-drag.tsx`, que sustituye `motion/react` y deja disparar `onDragEnd` a mano.

@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Salida generada por vinext/Cloudflare (no se versiona).
+    ".cloudflare/**",
+    ".vinext/**",
+    "dist/**",
   ]),
   {
     files: ["**/*.test.{ts,tsx}", "src/test/**"],

@@ -43,3 +43,6 @@ next-env.d.ts
 
 # impeccable: capturas de revisión (trabajo local)
 .impeccable/review/
+/dist/
+.vinext/
+.cloudflare/

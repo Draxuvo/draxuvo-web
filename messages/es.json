@@ -184,7 +184,6 @@
     "cycleLabel": "Periodicidad de pago",
     "monthly": "Mensual",
     "annual": "Anual",
-    "annualNote": "2 meses gratis",
     "iva": "IVA ({rate}%)",
     "total": "Total con IVA",
     "includes": "Incluye",

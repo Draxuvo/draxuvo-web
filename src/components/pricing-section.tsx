@@ -79,11 +79,6 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
                   )}
                 >
                   {t(value)}
-                  {value === "annual" && (
-                    <span className="rounded-full bg-ceja px-2 py-0.5 font-sans text-xs font-semibold tracking-normal text-tinta normal-case">
-                      {t("annualNote")}
-                    </span>
-                  )}
                 </button>
               ))}
             </div>

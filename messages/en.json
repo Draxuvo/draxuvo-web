@@ -184,7 +184,6 @@
     "cycleLabel": "Billing cycle",
     "monthly": "Monthly",
     "annual": "Annual",
-    "annualNote": "2 months free",
     "iva": "VAT ({rate}%)",
     "total": "Total with VAT",
     "includes": "Includes",

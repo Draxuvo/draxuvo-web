@@ -4,7 +4,7 @@ import { type CSSProperties, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { m } from "motion/react";
-import { type BillingCycle, type Need, type PlansResponse, registrationUrl, suggestPlan } from "@/lib/plans";
+import { type BillingCycle, type Need, type PlansResponse, demoUrl, registrationUrl, suggestPlan } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 import { PlanFinder } from "./plan-finder";
 import { TiltTag } from "./tilt-tag";
@@ -155,6 +155,13 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
                     )}
                   >
                     {t("cta")}
+                  </a>
+                  <a
+                    href={demoUrl(locale, plan.key)}
+                    aria-describedby={nameId}
+                    className="text-center text-sm font-semibold underline decoration-2 underline-offset-4 transition-colors duration-120 hover:text-oferta-hover"
+                  >
+                    {t("demoCta")}
                   </a>
                 </TiltTag>
                 </m.li>

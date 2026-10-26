@@ -16,14 +16,16 @@
     "signup": "Sign up",
     "plans": "Plans",
     "screens": "The panel",
-    "home": "Draxuvo, home"
+    "home": "Draxuvo, home",
+    "demo": "Try the demo"
   },
   "hero": {
     "title": "Your whole business in one system",
     "subtitle": "Staff, attendance, inventory, work orders, tickets and reports in one panel. You only pay for the modules in your plan.",
     "signup": "Sign up",
     "login": "Sign in",
-    "trialNote": "30 days free, no card required. Cancel anytime."
+    "trialNote": "30 days free, no card required. Cancel anytime.",
+    "demo": "Try the demo"
   },
   "modules": {
     "title": "What each module does",
@@ -206,7 +208,8 @@
     },
     "beforeTax": "before VAT",
     "perMonthLong": "per month",
-    "perYearLong": "per year"
+    "perYearLong": "per year",
+    "demoCta": "Try this plan's demo"
   },
   "footer": {
     "tagline": "Technology and automation",

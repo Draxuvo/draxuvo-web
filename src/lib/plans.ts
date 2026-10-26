@@ -95,6 +95,11 @@ export function uiBaseUrl(): string {
   return (process.env.NEXT_PUBLIC_UI_URL ?? "http://localhost:4200").replace(/\/$/, "");
 }
 
+/** Entrada a la demo del panel (spec 039); con `planKey`, el plan ya viene elegido. */
+export function demoUrl(locale: string, planKey?: PlanKey): string {
+  return `${uiBaseUrl()}/${locale}/demo${planKey ? `?plan=${planKey}` : ""}`;
+}
+
 export function registrationUrl(locale: string, planKey: PlanKey, cycle: BillingCycle): string {
   const ciclo = cycle === "annual" ? "anual" : "mensual";
   return `${uiBaseUrl()}/${locale}/registro?plan=${planKey}&ciclo=${ciclo}`;

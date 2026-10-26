@@ -16,14 +16,16 @@
     "signup": "Crear cuenta",
     "plans": "Planes",
     "screens": "El panel",
-    "home": "Draxuvo, inicio"
+    "home": "Draxuvo, inicio",
+    "demo": "Probar demo"
   },
   "hero": {
     "title": "Todo tu negocio en un solo sistema",
     "subtitle": "Personal, asistencia, inventario, órdenes de trabajo, tickets y reportes en un panel. Pagas solo los módulos de tu plan.",
     "signup": "Crear cuenta",
     "login": "Iniciar sesión",
-    "trialNote": "30 días gratis, sin tarjeta. Cancela cuando quieras."
+    "trialNote": "30 días gratis, sin tarjeta. Cancela cuando quieras.",
+    "demo": "Probar demo"
   },
   "modules": {
     "title": "Qué trae cada módulo",
@@ -206,7 +208,8 @@
     },
     "beforeTax": "sin IVA",
     "perMonthLong": "al mes",
-    "perYearLong": "al año"
+    "perYearLong": "al año",
+    "demoCta": "Probar la demo de este plan"
   },
   "footer": {
     "tagline": "Tecnología y automatización",

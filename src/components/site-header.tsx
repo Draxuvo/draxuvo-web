@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { routing } from "@/i18n/routing";
-import { uiBaseUrl } from "@/lib/plans";
+import { demoUrl, uiBaseUrl } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 import { BrandMark } from "./brand-mark";
 import { SectionFocus } from "./section-focus";
@@ -45,6 +45,12 @@ export function SiteHeader({ locale }: { locale: string }) {
               </Link>
             ))}
           </nav>
+          <a
+            href={demoUrl(locale)}
+            className="hidden rounded-etiqueta px-2 py-1.5 text-[0.8125rem] font-semibold whitespace-nowrap underline decoration-2 underline-offset-4 transition-colors duration-120 hover:text-oferta-hover sm:block sm:text-sm"
+          >
+            {t("demo")}
+          </a>
           <a
             href={`${uiBaseUrl()}/${locale}/login`}
             className="rounded-etiqueta border-2 border-tinta px-2 py-1.5 text-[0.8125rem] font-semibold whitespace-nowrap transition-colors duration-120 press hover:bg-etiqueta sm:px-3 sm:text-sm"

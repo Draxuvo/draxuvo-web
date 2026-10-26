@@ -86,3 +86,25 @@ describe("PricingSection", () => {
     expect(screen.getByText(/Precios en pesos mexicanos \(MXN\) más IVA del 16%\./)).toBeInTheDocument();
   });
 });
+
+describe("PricingSection: demo por plan (spec 039)", () => {
+  it("cada tarjeta ofrece la demo de su plan, con el plan ya elegido", () => {
+    pinta();
+    const enlaces = screen.getAllByRole("link", { name: "Probar la demo de este plan" });
+
+    expect(enlaces.map((a) => a.getAttribute("href"))).toEqual([
+      "https://panel.example.com/es/demo?plan=basic",
+      "https://panel.example.com/es/demo?plan=pro",
+      "https://panel.example.com/es/demo?plan=enterprise",
+    ]);
+  });
+
+  it("en inglés lleva el idioma y el texto del enlace", () => {
+    renderWithProviders(<PricingSection catalog={FALLBACK_PLANS} />, "en");
+
+    expect(screen.getAllByRole("link", { name: "Try this plan's demo" })[1]).toHaveAttribute(
+      "href",
+      "https://panel.example.com/en/demo?plan=pro",
+    );
+  });
+});

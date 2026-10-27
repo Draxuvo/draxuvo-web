@@ -26,7 +26,7 @@ describe("FALLBACK_PLANS", () => {
   });
 
   it("los precios anuales son los esperados", () => {
-    expect(FALLBACK_PLANS.plans.map((p) => p.prices.annual.amount_cents)).toEqual([399_000, 700_000, 1_299_000]);
+    expect(FALLBACK_PLANS.plans.map((p) => p.prices.annual.amount_cents)).toEqual([399_000, 799_000, 1_599_000]);
   });
 });
 

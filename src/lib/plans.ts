@@ -57,8 +57,8 @@ export const FALLBACK_PLANS: PlansResponse = {
   modules: MODULE_KEYS,
   plans: [
     plan("basic", ["employees", "attendance", "inventory"], 39_900, 399_000),
-    plan("pro", ["employees", "attendance", "inventory", "work_orders", "tickets", "reports"], 70_000, 700_000),
-    plan("enterprise", MODULE_KEYS, 129_900, 1_299_000),
+    plan("pro", ["employees", "attendance", "inventory", "work_orders", "tickets", "reports"], 79_900, 799_000),
+    plan("enterprise", MODULE_KEYS, 159_900, 1_599_000),
   ],
 };
 

@@ -41,6 +41,8 @@
       "services": "Servicios técnicos"
     },
     "items": {
+      "restaurant": { "title": "Restaurante" },
+      "terminals": { "title": "Terminales" },
       "employees": {
         "title": "Personal",
         "desc": "Expedientes, puestos y salarios de tu equipo en un solo lugar.",

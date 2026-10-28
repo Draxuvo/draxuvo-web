@@ -41,6 +41,8 @@
       "services": "Technical services"
     },
     "items": {
+      "restaurant": { "title": "Restaurant" },
+      "terminals": { "title": "Terminals" },
       "employees": {
         "title": "Staff",
         "desc": "Records, positions and salaries for your team in one place.",

@@ -12,16 +12,7 @@ afterEach(() => {
   vi.unstubAllEnvs();
 });
 
-const POS = {
-  key: "pos" as const,
-  requires: ["inventory" as const],
-  prices: {
-    monthly: { amount_cents: 19_900, iva_cents: 3_184, total_cents: 23_084 },
-    annual: { amount_cents: 199_000, iva_cents: 31_840, total_cents: 230_840 },
-  },
-};
 const pinta = () => renderWithProviders(<PricingSection catalog={FALLBACK_PLANS} />);
-const pintaConExtra = () => renderWithProviders(<PricingSection catalog={{ ...FALLBACK_PLANS, addons: [POS] }} />);
 const tarjeta = (nombre: string) => screen.getByRole("heading", { name: nombre }).closest("div[aria-labelledby]") as HTMLElement;
 
 describe("PricingSection", () => {
@@ -118,47 +109,11 @@ describe("PricingSection: demo por plan (spec 039)", () => {
   });
 });
 
-// El precio grande se parte en varios <span>; se busca por el texto completo del párrafo que lo contiene.
-const cifra = (lista: ReturnType<typeof within>, texto: string) =>
-  lista.getByText((_contenido: string, nodo: Element | null) => nodo?.tagName === "P" && (nodo.textContent ?? "").startsWith(texto));
-
-describe("PricingSection: módulos extra (spec 050)", () => {
-  it("sin extras confirmados por la API no se anuncia ninguno (spec 052)", () => {
+describe("PricingSection: sin módulos extra (spec 053)", () => {
+  it("la tabla no anuncia módulos extra: los enciende el equipo de Draxuvo", () => {
     pinta();
     expect(screen.queryByRole("list", { name: "Módulos extra" })).toBeNull();
-  });
-
-  it("muestra el punto de venta aparte de los tres planes, con su precio sin IVA, el IVA y el total", () => {
-    pintaConExtra();
-    const extras = within(screen.getByRole("list", { name: "Módulos extra" }));
-    expect(extras.getByText("Punto de venta")).toBeInTheDocument();
-    expect(cifra(extras, "$199.00")).toBeInTheDocument();
-    expect(extras.getByText(/\$230\.84/)).toBeInTheDocument();
-    expect(extras.getByText(/sin IVA/)).toBeInTheDocument();
-    expect(extras.getByText(/Necesita Inventario/)).toBeInTheDocument();
-    // Los extras no son un cuarto plan: la tabla sigue teniendo tres tarjetas.
+    expect(screen.queryByText("Punto de venta")).toBeNull();
     expect(screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent)).toEqual(["Básico", "Pro", "Empresa"]);
   });
-
-  it("el ciclo anual cambia el precio del extra a 10 meses", async () => {
-    pintaConExtra();
-    await userEvent.click(screen.getByRole("button", { name: /Anual/ }));
-    const extras = within(screen.getByRole("list", { name: "Módulos extra" }));
-    expect(cifra(extras, "$1,990.00")).toBeInTheDocument();
-    expect(extras.getByText(/\$2,308\.40/)).toBeInTheDocument();
-    expect(extras.getByText(/al año/)).toBeInTheDocument();
-  });
-
-  it("no se vende como parte de ningún plan: no sale en sus listas de módulos", () => {
-    pinta();
-    for (const nombre of ["Básico", "Pro", "Empresa"]) {
-      expect(within(tarjeta(nombre)).queryByText("Punto de venta")).toBeNull();
-    }
-  });
-
-  it("sin módulos extra en el catálogo no pinta la sección", () => {
-    renderWithProviders(<PricingSection catalog={{ ...FALLBACK_PLANS, addons: undefined }} />);
-    expect(screen.queryByText("Módulos extra")).toBeNull();
-  });
 });
-

@@ -215,19 +215,7 @@
     "beforeTax": "sin IVA",
     "perMonthLong": "al mes",
     "perYearLong": "al año",
-    "demoCta": "Probar la demo de este plan",
-    "addons": {
-      "title": "Módulos extra",
-      "intro": "Se suman a cualquier plan, se cobran junto con tu suscripción y los puedes dar de baja cuando quieras.",
-      "requires": "Necesita {modules}",
-      "onAnyPlan": "Disponible en los tres planes",
-      "items": {
-        "pos": {
-          "name": "Punto de venta",
-          "desc": "Cobra en mostrador con los artículos de tu inventario: escanea o busca, cobra en efectivo, tarjeta o transferencia y entrega el ticket en PDF, impreso o por WhatsApp."
-        }
-      }
-    }
+    "demoCta": "Probar la demo de este plan"
   },
   "footer": {
     "tagline": "Tecnología y automatización",

@@ -215,19 +215,7 @@
     "beforeTax": "before VAT",
     "perMonthLong": "per month",
     "perYearLong": "per year",
-    "demoCta": "Try this plan's demo",
-    "addons": {
-      "title": "Add-on modules",
-      "intro": "They add to any plan, are billed with your subscription and you can drop them whenever you want.",
-      "requires": "Needs {modules}",
-      "onAnyPlan": "Available on all three plans",
-      "items": {
-        "pos": {
-          "name": "Point of sale",
-          "desc": "Charge at the counter with the items in your inventory: scan or search, take cash, card or transfer and hand out the receipt as PDF, printed or by WhatsApp."
-        }
-      }
-    }
+    "demoCta": "Try this plan's demo"
   },
   "footer": {
     "tagline": "Technology and automation",

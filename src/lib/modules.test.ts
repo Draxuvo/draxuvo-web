@@ -41,7 +41,8 @@ describe("modulesWithPlan", () => {
     expect(byKey.multi_company).toBe("enterprise");
     expect(byKey.work_orders).toBe("pro");
     expect(byKey.tickets).toBe("pro");
-    expect(byKey.reports).toBe("pro");
+    // Spec 052: Reportes ya viene en Básico (spec 033).
+    expect(byKey.reports).toBe("basic");
     expect(byKey.employees).toBe("basic");
   });
 });

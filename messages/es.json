@@ -201,7 +201,7 @@
     "plans": {
       "basic": {
         "name": "Básico",
-        "desc": "Personal, asistencia e inventario"
+        "desc": "Personal, asistencia, inventario y reportes"
       },
       "pro": {
         "name": "Pro",

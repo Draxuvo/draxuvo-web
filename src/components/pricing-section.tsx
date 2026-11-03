@@ -51,7 +51,6 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
   });
   const format = (cents: number) => money.format(cents / 100);
   const ivaPercent = Math.round(catalog.iva_rate * 100);
-  const addons = catalog.addons ?? [];
 
   function chooseCycle(value: BillingCycle) {
     if (value === cycle) return;
@@ -171,38 +170,6 @@ export function PricingSection({ catalog }: { catalog: PlansResponse }) {
           </ul>
         </div>
       </div>
-
-      {addons.length > 0 && (
-        <div className="mx-auto max-w-[72rem] px-4 pt-6 sm:px-6">
-          <p id="addons-title" className="font-display text-2xl leading-none font-extrabold uppercase">
-            {t("addons.title")}
-          </p>
-          <p className="mt-1 max-w-[60ch] text-gris-texto">{t("addons.intro")}</p>
-          <ul aria-labelledby="addons-title" className="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {addons.map((extra) => {
-              const extraPrice = extra.prices[cycle];
-              return (
-                <li key={extra.key} className="rounded-etiqueta border-2 border-dashed border-tinta bg-etiqueta p-4 shadow-etiqueta">
-                  <p className="font-display text-xl leading-none font-extrabold uppercase">{t(`addons.items.${extra.key}.name`)}</p>
-                  <p className="mt-1 text-[0.9375rem] leading-snug text-gris-texto">{t(`addons.items.${extra.key}.desc`)}</p>
-                  <p className="mt-3 text-[2.25rem] leading-none">
-                    <PriceFigure parts={money.formatToParts(extraPrice.amount_cents / 100)} />
-                  </p>
-                  <p className="mt-1 text-[0.8125rem] font-semibold tracking-[0.06em] text-gris-texto uppercase">
-                    {t("beforeTax")} · {t(cycle === "monthly" ? "perMonthLong" : "perYearLong")}
-                  </p>
-                  <p className="mt-2 text-sm">
-                    {t("iva", { rate: ivaPercent })}: {format(extraPrice.iva_cents)} · {t("total")}: <strong>{format(extraPrice.total_cents)}</strong>
-                  </p>
-                  <p className="mt-2 text-sm text-gris-texto">
-                    {t("addons.requires", { modules: extra.requires.map((module) => tm(`items.${module}.title`)).join(", ") })} · {t("addons.onAnyPlan")}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
 
       <div className="mx-auto max-w-[72rem] px-4 pt-6 sm:px-6">
         <p className="max-w-[60ch] text-gris-texto">

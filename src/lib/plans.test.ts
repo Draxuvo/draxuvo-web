@@ -185,13 +185,10 @@ describe("MODULE_KEYS", () => {
   });
 });
 
-describe("módulos extra en el catálogo (spec 050)", () => {
-  it("el respaldo no anuncia ningún extra: solo se ofrece cuando la API confirma que se puede cobrar (spec 052)", () => {
-    expect(FALLBACK_PLANS.addons).toEqual([]);
-  });
-
-  it("ningún plan incluye el extra", () => {
+describe("catálogo sin módulos extra (spec 053)", () => {
+  it("ningún plan incluye un módulo extra y el catálogo no trae extras", () => {
     for (const plan of FALLBACK_PLANS.plans) expect(plan.modules).not.toContain("pos");
+    expect("addons" in FALLBACK_PLANS).toBe(false);
   });
 });
 

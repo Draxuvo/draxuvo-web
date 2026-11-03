@@ -184,3 +184,17 @@ describe("MODULE_KEYS", () => {
     expect(MODULE_KEYS).toHaveLength(8);
   });
 });
+
+describe("módulos extra en el catálogo (spec 050)", () => {
+  it("el respaldo trae el punto de venta: $199 al mes y $1,990 al año sin IVA", () => {
+    const pos = FALLBACK_PLANS.addons?.find((a) => a.key === "pos");
+    expect(pos?.requires).toEqual(["inventory"]);
+    expect(pos?.prices.monthly).toEqual({ amount_cents: 19_900, iva_cents: 3_184, total_cents: 23_084 });
+    expect(pos?.prices.annual).toEqual({ amount_cents: 199_000, iva_cents: 31_840, total_cents: 230_840 });
+  });
+
+  it("ningún plan incluye el extra", () => {
+    for (const plan of FALLBACK_PLANS.plans) expect(plan.modules).not.toContain("pos");
+  });
+});
+

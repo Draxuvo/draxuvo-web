@@ -24,10 +24,21 @@ export interface Plan {
   prices: Record<BillingCycle, PlanPrice>;
 }
 
+/** Módulo extra que se contrata aparte de los planes (spec 050); hoy solo el punto de venta. */
+export type AddonKey = "pos";
+
+export interface Addon {
+  key: AddonKey;
+  requires: ModuleKey[];
+  prices: Record<BillingCycle, PlanPrice>;
+}
+
 export interface PlansResponse {
   iva_rate: number;
   plans: Plan[];
   modules: ModuleKey[];
+  /** Módulos extra con su precio; las respuestas anteriores de la API no lo traen. */
+  addons?: Addon[];
 }
 
 export const MODULE_KEYS: ModuleKey[] = [
@@ -52,9 +63,14 @@ function plan(key: PlanKey, modules: ModuleKey[], monthly: number, annual: numbe
   return { key, modules, prices: { monthly: price(monthly), annual: price(annual) } };
 }
 
+function addon(key: AddonKey, requires: ModuleKey[], monthly: number, annual: number): Addon {
+  return { key, requires, prices: { monthly: price(monthly), annual: price(annual) } };
+}
+
 export const FALLBACK_PLANS: PlansResponse = {
   iva_rate: IVA_RATE,
   modules: MODULE_KEYS,
+  addons: [addon("pos", ["inventory"], 19_900, 199_000)],
   plans: [
     plan("basic", ["employees", "attendance", "inventory"], 39_900, 399_000),
     plan("pro", ["employees", "attendance", "inventory", "work_orders", "tickets", "reports"], 79_900, 799_000),

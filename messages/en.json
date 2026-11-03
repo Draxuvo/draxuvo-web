@@ -201,7 +201,7 @@
     "plans": {
       "basic": {
         "name": "Basic",
-        "desc": "Staff, attendance and inventory"
+        "desc": "Staff, attendance, inventory and reports"
       },
       "pro": {
         "name": "Pro",

@@ -63,16 +63,13 @@ function plan(key: PlanKey, modules: ModuleKey[], monthly: number, annual: numbe
   return { key, modules, prices: { monthly: price(monthly), annual: price(annual) } };
 }
 
-function addon(key: AddonKey, requires: ModuleKey[], monthly: number, annual: number): Addon {
-  return { key, requires, prices: { monthly: price(monthly), annual: price(annual) } };
-}
-
 export const FALLBACK_PLANS: PlansResponse = {
   iva_rate: IVA_RATE,
   modules: MODULE_KEYS,
-  addons: [addon("pos", ["inventory"], 19_900, 199_000)],
+  // Sin respuesta de la API no se anuncia ningún extra: solo se ofrece cuando la API confirma que se puede cobrar (spec 052).
+  addons: [],
   plans: [
-    plan("basic", ["employees", "attendance", "inventory"], 39_900, 399_000),
+    plan("basic", ["employees", "attendance", "inventory", "reports"], 39_900, 399_000),
     plan("pro", ["employees", "attendance", "inventory", "work_orders", "tickets", "reports"], 79_900, 799_000),
     plan("enterprise", MODULE_KEYS, 159_900, 1_599_000),
   ],

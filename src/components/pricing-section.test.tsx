@@ -108,3 +108,43 @@ describe("PricingSection: demo por plan (spec 039)", () => {
     );
   });
 });
+
+// El precio grande se parte en varios <span>; se busca por el texto completo del párrafo que lo contiene.
+const cifra = (lista: ReturnType<typeof within>, texto: string) =>
+  lista.getByText((_contenido: string, nodo: Element | null) => nodo?.tagName === "P" && (nodo.textContent ?? "").startsWith(texto));
+
+describe("PricingSection: módulos extra (spec 050)", () => {
+  it("muestra el punto de venta aparte de los tres planes, con su precio sin IVA, el IVA y el total", () => {
+    pinta();
+    const extras = within(screen.getByRole("list", { name: "Módulos extra" }));
+    expect(extras.getByText("Punto de venta")).toBeInTheDocument();
+    expect(cifra(extras, "$199.00")).toBeInTheDocument();
+    expect(extras.getByText(/\$230\.84/)).toBeInTheDocument();
+    expect(extras.getByText(/sin IVA/)).toBeInTheDocument();
+    expect(extras.getByText(/Necesita Inventario/)).toBeInTheDocument();
+    // Los extras no son un cuarto plan: la tabla sigue teniendo tres tarjetas.
+    expect(screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent)).toEqual(["Básico", "Pro", "Empresa"]);
+  });
+
+  it("el ciclo anual cambia el precio del extra a 10 meses", async () => {
+    pinta();
+    await userEvent.click(screen.getByRole("button", { name: /Anual/ }));
+    const extras = within(screen.getByRole("list", { name: "Módulos extra" }));
+    expect(cifra(extras, "$1,990.00")).toBeInTheDocument();
+    expect(extras.getByText(/\$2,308\.40/)).toBeInTheDocument();
+    expect(extras.getByText(/al año/)).toBeInTheDocument();
+  });
+
+  it("no se vende como parte de ningún plan: no sale en sus listas de módulos", () => {
+    pinta();
+    for (const nombre of ["Básico", "Pro", "Empresa"]) {
+      expect(within(tarjeta(nombre)).queryByText("Punto de venta")).toBeNull();
+    }
+  });
+
+  it("sin módulos extra en el catálogo no pinta la sección", () => {
+    renderWithProviders(<PricingSection catalog={{ ...FALLBACK_PLANS, addons: undefined }} />);
+    expect(screen.queryByText("Módulos extra")).toBeNull();
+  });
+});
+

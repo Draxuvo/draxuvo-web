@@ -347,5 +347,24 @@
   },
   "progress": {
     "label": "Reading progress"
+  },
+  "menu": {
+    "title": "Menu",
+    "description": "Restaurant menu",
+    "tableName": "Table {name}",
+    "all": "All",
+    "search": "Search dishes",
+    "searchLabel": "Search the menu",
+    "categories": "Categories",
+    "noResults": "No dishes match.",
+    "soldOut": "Sold out",
+    "loading": "Loading the menu…",
+    "invalid": "This link is not valid.",
+    "invalidHint": "Ask the staff for the menu.",
+    "unavailable": "The menu is not available right now.",
+    "unavailableHint": "Ask the staff for the menu.",
+    "empty": "This menu has no dishes yet.",
+    "error": "We could not load the menu.",
+    "retry": "Try again"
   }
 }

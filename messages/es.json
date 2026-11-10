@@ -347,5 +347,24 @@
   },
   "progress": {
     "label": "Avance de lectura"
+  },
+  "menu": {
+    "title": "Menú",
+    "description": "Menú del restaurante",
+    "tableName": "Mesa {name}",
+    "all": "Todo",
+    "search": "Buscar platillo",
+    "searchLabel": "Buscar en el menú",
+    "categories": "Categorías",
+    "noResults": "No hay platillos que coincidan.",
+    "soldOut": "Agotado",
+    "loading": "Cargando el menú…",
+    "invalid": "Este enlace no es válido.",
+    "invalidHint": "Pide el menú al personal.",
+    "unavailable": "El menú no está disponible por el momento.",
+    "unavailableHint": "Pide el menú al personal.",
+    "empty": "Este menú aún no tiene platillos.",
+    "error": "No pudimos cargar el menú.",
+    "retry": "Reintentar"
   }
 }

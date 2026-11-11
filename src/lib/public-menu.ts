@@ -11,7 +11,20 @@ export interface PublicMenuItem {
   /** Ya resuelto por la API (producto → tipo); `null` muestra la inicial. */
   icon: ProductIconKey | string | null;
   sold_out: boolean;
+  /**
+   * Foto del producto (spec 061): `null` sin foto o mientras la API la prepara. Opcional para convivir con una API
+   * anterior durante el despliegue.
+   */
+  photo?: PublicMenuPhoto | null;
 }
+
+/**
+ * Cómo sale la foto (spec 061, contracts/web.md). `url` es la versión de tarjeta (4:3); en una miniatura es la que se
+ * abre al ampliarla, y `thumbnail_url` (cuadrada) la que va en el renglón. Las URLs caducan en 1 h.
+ */
+export type PublicMenuPhoto =
+  | { style: "card"; url: string }
+  | { style: "thumbnail"; url: string; thumbnail_url: string };
 
 export interface PublicMenuCategory {
   name: string;

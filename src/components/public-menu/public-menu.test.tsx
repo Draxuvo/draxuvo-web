@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { screen, within } from "@testing-library/react";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "@/test/render";
 import type { PublicMenu as Menu } from "@/lib/public-menu";
@@ -153,5 +153,112 @@ describe("PublicMenu", () => {
 
     expect(await screen.findByText("Sold out")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "All" })).toBeInTheDocument();
+  });
+  describe("photos (spec 061)", () => {
+    const PHOTOS: Menu = {
+      business: { name: "Sazón Centro" },
+      table: { name: "Mesa 4" },
+      categories: [
+        {
+          name: "Platillos",
+          items: [
+            { name: "Enchiladas suizas", description: "Con crema", price_cents: 14500, icon: "taco", sold_out: false, photo: { style: "card", url: "https://fotos.test/enchiladas-card" } },
+            { name: "Pozole rojo", description: null, price_cents: 16000, icon: "soup", sold_out: false, photo: { style: "thumbnail", url: "https://fotos.test/pozole-card", thumbnail_url: "https://fotos.test/pozole-thumb" } },
+            { name: "Sopa del día", description: null, price_cents: 5500, icon: "soup", sold_out: false, photo: null },
+            { name: "Flautas", description: null, price_cents: 9000, icon: "taco", sold_out: true, photo: { style: "card", url: "https://fotos.test/flautas-card" } },
+          ],
+        },
+        { name: "Bebidas", items: [{ name: "Café de olla", description: null, price_cents: 3500, icon: "coffee", sold_out: false, photo: null }] },
+      ],
+    };
+
+    beforeEach(() => {
+      // jsdom no implementa <dialog>.showModal / close.
+      HTMLDialogElement.prototype.showModal = function () {
+        this.setAttribute("open", "");
+      };
+      HTMLDialogElement.prototype.close = function () {
+        this.removeAttribute("open");
+      };
+    });
+
+    it("shows a card photo 4:3, lazily, with the dish name as alt", async () => {
+      mockFetch(reply(200, PHOTOS));
+      renderWithProviders(<PublicMenu token="tok" />);
+
+      const img = await screen.findByRole("img", { name: "Enchiladas suizas" });
+      expect(img).toHaveAttribute("src", "https://fotos.test/enchiladas-card");
+      expect(img).toHaveAttribute("loading", "lazy");
+      expect(img.parentElement).toHaveClass("aspect-[4/3]");
+      // La foto de una tarjeta no se toca.
+      expect(img.closest("button")).toBeNull();
+    });
+
+    it("shows a thumbnail button that opens the large photo with name and price, and closes it", async () => {
+      mockFetch(reply(200, PHOTOS));
+      const back = vi.spyOn(window.history, "back").mockImplementation(() => window.dispatchEvent(new PopStateEvent("popstate")));
+      const user = userEvent.setup();
+      renderWithProviders(<PublicMenu token="tok" />);
+
+      const thumb = await screen.findByRole("button", { name: "Ver foto de Pozole rojo" });
+      expect(within(thumb).getByRole("img", { name: "Pozole rojo" })).toHaveAttribute("src", "https://fotos.test/pozole-thumb");
+      expect(document.querySelector('img[src="https://fotos.test/pozole-card"]')).toBeNull();
+
+      await user.click(thumb);
+      const viewer = screen.getByRole("dialog", { name: "Pozole rojo" });
+      expect(within(viewer).getByRole("img", { name: "Pozole rojo" })).toHaveAttribute("src", "https://fotos.test/pozole-card");
+      expect(within(viewer).getByText("$160.00")).toBeInTheDocument();
+
+      await user.click(within(viewer).getByRole("button", { name: "Cerrar" }));
+      expect(back).toHaveBeenCalled();
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+
+    it("closes the large photo with the phone back button", async () => {
+      mockFetch(reply(200, PHOTOS));
+      const push = vi.spyOn(window.history, "pushState");
+      const user = userEvent.setup();
+      renderWithProviders(<PublicMenu token="tok" />);
+
+      await user.click(await screen.findByRole("button", { name: "Ver foto de Pozole rojo" }));
+      expect(push).toHaveBeenCalled();
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+    });
+
+    it("shows the icon when a photo fails to load", async () => {
+      mockFetch(reply(200, PHOTOS));
+      renderWithProviders(<PublicMenu token="tok" />);
+
+      const img = await screen.findByRole("img", { name: "Enchiladas suizas" });
+      fireEvent.error(img);
+      expect(screen.queryByRole("img", { name: "Enchiladas suizas" })).not.toBeInTheDocument();
+      expect(screen.getByRole("heading", { level: 3, name: "Enchiladas suizas" })).toBeInTheDocument();
+    });
+
+    it("keeps sold out dishes with photo dimmed and marked", async () => {
+      mockFetch(reply(200, PHOTOS));
+      renderWithProviders(<PublicMenu token="tok" />);
+
+      const flautas = (await screen.findByRole("img", { name: "Flautas" })).closest("li")!;
+      expect(flautas).toHaveClass("opacity-60");
+      expect(within(flautas).getByText("Agotado")).toBeInTheDocument();
+    });
+
+    it("search and category filters also cut cards and thumbnails", async () => {
+      mockFetch(reply(200, PHOTOS));
+      const user = userEvent.setup();
+      renderWithProviders(<PublicMenu token="tok" />);
+
+      await screen.findByRole("img", { name: "Enchiladas suizas" });
+      await user.type(screen.getByRole("searchbox", { name: "Buscar en el menú" }), "pozole");
+      expect(screen.queryByRole("img", { name: "Enchiladas suizas" })).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Ver foto de Pozole rojo" })).toBeInTheDocument();
+
+      await user.clear(screen.getByRole("searchbox"));
+      await user.click(screen.getByRole("button", { name: "Bebidas" }));
+      expect(screen.queryByRole("button", { name: "Ver foto de Pozole rojo" })).not.toBeInTheDocument();
+      expect(screen.getByText("Café de olla")).toBeInTheDocument();
+    });
   });
 });

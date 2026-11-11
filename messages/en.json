@@ -365,6 +365,8 @@
     "unavailableHint": "Ask the staff for the menu.",
     "empty": "This menu has no dishes yet.",
     "error": "We could not load the menu.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "viewPhoto": "See photo of {name}",
+    "closePhoto": "Close"
   }
 }

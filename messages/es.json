@@ -365,6 +365,8 @@
     "unavailableHint": "Pide el menú al personal.",
     "empty": "Este menú aún no tiene platillos.",
     "error": "No pudimos cargar el menú.",
-    "retry": "Reintentar"
+    "retry": "Reintentar",
+    "viewPhoto": "Ver foto de {name}",
+    "closePhoto": "Cerrar"
   }
 }

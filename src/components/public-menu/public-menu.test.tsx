@@ -262,3 +262,36 @@ describe("PublicMenu", () => {
     });
   });
 });
+
+// Spec 063 (FR-018): el logo del negocio en el encabezado del menú.
+describe("PublicMenu: logo del negocio", () => {
+  beforeEach(() => vi.stubEnv("NEXT_PUBLIC_API_URL", "http://api.test"));
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  it("shows the logo above the business name when there is one", async () => {
+    mockFetch(reply(200, { ...MENU, business: { name: "Sazón Centro", logo_url: "https://r2.test/logo.webp?sig=1" } }));
+    renderWithProviders(<PublicMenu token="tok" />);
+
+    expect(await screen.findByRole("img", { name: "Sazón Centro" })).toHaveAttribute("src", "https://r2.test/logo.webp?sig=1");
+    expect(screen.getByRole("heading", { level: 1, name: "Sazón Centro" })).toBeInTheDocument();
+  });
+
+  it("keeps the header as before without a logo", async () => {
+    mockFetch(reply(200, { ...MENU, business: { name: "Sazón Centro", logo_url: null } }));
+    renderWithProviders(<PublicMenu token="tok" />);
+
+    expect(await screen.findByRole("heading", { level: 1, name: "Sazón Centro" })).toBeInTheDocument();
+    expect(screen.queryByRole("img", { name: "Sazón Centro" })).not.toBeInTheDocument();
+  });
+
+  it("hides the logo if it does not load", async () => {
+    mockFetch(reply(200, { ...MENU, business: { name: "Sazón Centro", logo_url: "https://r2.test/caducado.webp" } }));
+    renderWithProviders(<PublicMenu token="tok" />);
+
+    fireEvent.error(await screen.findByRole("img", { name: "Sazón Centro" }));
+    expect(screen.queryByRole("img", { name: "Sazón Centro" })).not.toBeInTheDocument();
+  });
+});

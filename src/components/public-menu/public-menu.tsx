@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Search } from "lucide-react";
+import { BusinessLogo } from "@/components/public-menu/business-logo";
 import { CategoryChips } from "@/components/public-menu/category-chips";
 import { MenuItem } from "@/components/public-menu/menu-item";
 import { fetchPublicMenu, filterMenu, type PublicMenu as Menu, type PublicMenuResult } from "@/lib/public-menu";
@@ -105,6 +106,7 @@ function MenuView({
   return (
     <div className="mx-auto w-full max-w-2xl flex-1 pb-12">
       <header className="px-4 pt-8 pb-4">
+        <BusinessLogo url={menu.business.logo_url} name={menu.business.name} />
         <h1 className="font-display text-4xl leading-none font-extrabold uppercase break-words">{menu.business.name}</h1>
         <p className="mt-2 text-lg font-semibold">{tableLabel(menu.table.name, (name) => t("tableName", { name }))}</p>
       </header>

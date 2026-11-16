@@ -32,7 +32,8 @@ export interface PublicMenuCategory {
 }
 
 export interface PublicMenu {
-  business: { name: string };
+  /** `logo_url` (spec 063): URL firmada del logo del negocio, o null sin logo. */
+  business: { name: string; logo_url?: string | null };
   table: { name: string };
   categories: PublicMenuCategory[];
 }

@@ -113,3 +113,6 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           NEXT_PUBLIC_API_URL: https://api.draxuvo.com
           NEXT_PUBLIC_UI_URL: https://app.draxuvo.com
+          # Spec 071: errores del navegador a Sentry. Variable del repo (un DSN es público); sin ella no se reporta nada.
+          NEXT_PUBLIC_SENTRY_DSN: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+          NEXT_PUBLIC_SENTRY_RELEASE: ${{ github.sha }}

@@ -6,6 +6,7 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { notFound } from "next/navigation";
 import { Barlow, Barlow_Condensed } from "next/font/google";
 import { routing } from "@/i18n/routing";
+import { MonitoringInit } from "@/components/monitoring-init";
 import "../globals.css";
 
 const barlow = Barlow({
@@ -50,6 +51,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} className={`${barlow.variable} ${barlowCondensed.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-anaquel font-sans text-tinta">
+        <MonitoringInit />
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
